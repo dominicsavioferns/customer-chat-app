@@ -6,6 +6,8 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { CommandType } from '../chat.enum';
 import { ChatService } from '../chat.service';
 import { CommandResponse, GeoCoords } from '../interfaces/command.interface';
@@ -23,12 +25,14 @@ import { RateComponent } from '../widgets/rate/rate.component';
 export class MessagesContainerComponent implements OnInit {
   @Input() user!: string;
 
-  @ViewChild('element', { read: ViewContainerRef })
+  @ViewChild('message', { read: ViewContainerRef })
   placeholder!: ViewContainerRef;
 
-  @ViewChild('messages') private messagesWrapper!: ElementRef;
-
-  constructor(private chatService: ChatService) {}
+  constructor(
+    private chatService: ChatService,
+    private authService: AuthenticationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.insertDynamicComponent();
@@ -53,9 +57,23 @@ export class MessagesContainerComponent implements OnInit {
     switch (commandResponse.command.type) {
       case CommandType.COMPLETE:
         component = this.placeholder.createComponent(CompleteComponent);
+        component.instance.author = commandResponse.author;
+        component.instance.actions = commandResponse.command.data as [
+          string,
+          string
+        ];
+        component.instance.onAction.subscribe((action) => {
+          this.handleCompleteEvent(action);
+        });
         break;
       case CommandType.DATE:
         component = this.placeholder.createComponent(DateComponent);
+        component.instance.minDate = new Date(
+          commandResponse.command.data as string
+        );
+        component.instance.onDateSelected.subscribe((date) => {
+          this.handleDateEvent(date);
+        });
         break;
       case CommandType.RATE:
         component = this.placeholder.createComponent(RateComponent);
@@ -73,5 +91,23 @@ export class MessagesContainerComponent implements OnInit {
       default:
         throw new Error('Invalid commandType');
     }
+  }
+
+  private handleCompleteEvent(action: string): void {
+    switch (action) {
+      case 'Yes':
+        this.authService.logout().subscribe((_) => {
+          this.router.navigate(['/login']);
+        });
+        break;
+      case 'No':
+        break; // do something
+      default:
+        throw new Error('Invalid action');
+    }
+  }
+
+  private handleDateEvent(date: string): void {
+    console.log(date);
   }
 }

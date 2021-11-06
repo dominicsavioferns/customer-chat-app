@@ -1,17 +1,15 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[ottChangeDirective]',
+  selector: '[ottScrollBottom]',
 })
-export class ChangeDirectiveDirective {
+export class ScrollBottomDirective {
   private observer: any;
   constructor(private el: ElementRef) {}
 
   ngAfterViewInit() {
     this.observer = new MutationObserver((mutations) => {
-      mutations.forEach(function (mutation) {
-        console.log(mutation.type);
-      });
+      mutations.forEach(function (_) {});
       this.scrollToBottom();
     });
     var config = { attributes: true, childList: true, characterData: true };

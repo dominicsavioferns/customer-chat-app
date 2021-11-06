@@ -1,8 +1,8 @@
-import { ChangeDirectiveDirective } from './change-directive.directive';
+import { ScrollBottomDirective } from './scroll-bottom-directive.directive';
 
 describe('ChangeDirectiveDirective', () => {
   it('should create an instance', () => {
-    const directive = new ChangeDirectiveDirective();
+    const directive = new ScrollBottomDirective();
     expect(directive).toBeTruthy();
   });
 });

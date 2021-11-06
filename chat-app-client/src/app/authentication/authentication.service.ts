@@ -14,4 +14,9 @@ export class AuthenticationService {
     this.username = credentials.username;
     return of(true);
   }
+
+  public logout(): Observable<boolean> {
+    this.username = '';
+    return of(true);
+  }
 }

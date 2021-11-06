@@ -6,7 +6,7 @@
 		<mat-card-content>
 			<mat-card>
 				<mat-card class="demo-inline-calendar-card">
-					<mat-calendar [selected]="selected" [minDate]="minDate" (selectedChange)="selected = $event"></mat-calendar>
+					<mat-calendar [selected]="selected" [minDate]="minDate" (selectedChange)="handleDateSelected($event)"></mat-calendar>
 				  </mat-card>
 				  <p>Selected date: {{selected}}</p>
 			  </mat-card>

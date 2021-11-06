@@ -12,7 +12,7 @@ import { CompleteComponent } from './widgets/complete/complete.component';
 import { RateComponent } from './widgets/rate/rate.component';
 import { DateComponent } from './widgets/date/date.component';
 import { MapComponent } from './widgets/map/map.component';
-import { ChangeDirectiveDirective } from './directives/change-directive.directive';
+import { ScrollBottomDirective } from './directives/scroll-bottom-directive.directive';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { ChangeDirectiveDirective } from './directives/change-directive.directiv
     RateComponent,
     DateComponent,
     MapComponent,
-    ChangeDirectiveDirective,
+    ScrollBottomDirective,
   ],
   imports: [
     CommonModule,

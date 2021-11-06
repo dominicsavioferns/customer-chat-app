@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'ott-date',
@@ -6,12 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./date.component.scss'],
 })
 export class DateComponent implements OnInit {
+  @Input() minDate!: Date;
+  @Output() onDateSelected: EventEmitter<string>;
+
   selected!: Date | null;
-  minDate!: Date;
 
   constructor() {
-    this.minDate = new Date();
+    this.onDateSelected = new EventEmitter<string>();
   }
 
   ngOnInit(): void {}
+
+  handleDateSelected($event: string): void {
+    this.onDateSelected.emit($event);
+    this.selected = new Date($event);
+  }
 }

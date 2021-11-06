@@ -1,15 +1,17 @@
 <div class="message-wrapper">
 	<mat-card class="message-card">
 
-		<mat-card-subtitle class="sender-name">Ottobot</mat-card-subtitle>
+		<mat-card-subtitle class="sender-name">{{author}}</mat-card-subtitle>
 
 		<mat-card-content>
 		  <p>Are you sure you want to close this conversation?</p>
 		</mat-card-content>
 
 		<mat-card-actions align="end">
-			<button mat-raised-button color="primary">Yes</button>
-			<button mat-raised-button color="warn">No</button>
+			<button *ngFor="let action of actions" 
+			mat-raised-button [color]="action=='No'?'warn':'primary'"
+			type="button"
+			(click)="handleAction(action)">{{action}}</button>
 		</mat-card-actions>
 	</mat-card>
 </div>
