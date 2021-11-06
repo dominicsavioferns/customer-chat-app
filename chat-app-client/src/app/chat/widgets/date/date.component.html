@@ -1,0 +1,16 @@
+<div class="message-wrapper">
+	<mat-card class="message-card">
+
+		<mat-card-subtitle class="sender-name">Dom</mat-card-subtitle>
+
+		<mat-card-content>
+			<mat-card>
+				<mat-card class="demo-inline-calendar-card">
+					<mat-calendar [selected]="selected" [minDate]="minDate" (selectedChange)="selected = $event"></mat-calendar>
+				  </mat-card>
+				  <p>Selected date: {{selected}}</p>
+			  </mat-card>
+		</mat-card-content>
+	</mat-card>
+</div>
+

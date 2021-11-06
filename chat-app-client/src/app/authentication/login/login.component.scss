@@ -1,0 +1,44 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+}
+
+.login-card {
+  width: 100%;
+  margin: 20px;
+  margin-top: 10%;
+}
+
+#login-btn {
+  margin-right: 1%;
+}
+
+.form-title {
+  text-align: center;
+  padding: 3%;
+}
+
+.login-form {
+  padding: 3%;
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-width: 480px) and (max-width: 1024px) {
+  .login-card {
+    width: 70%;
+  }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1024px) and (max-width: 1824px) {
+  .login-card {
+    width: 25%;
+  }
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width: 1824px) {
+  .login-card {
+    width: 20%;
+  }
+}

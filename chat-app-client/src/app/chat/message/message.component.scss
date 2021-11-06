@@ -1,0 +1,21 @@
+.message-wrapper {
+  margin: 1%;
+  display: flex;
+  .message-card {
+    min-width: 20%;
+    max-width: 50%;
+
+    .sender-name {
+      font-weight: bold;
+      color: #673ab7;
+    }
+
+    .message-footer {
+      margin-right: 1%;
+    }
+  }
+}
+
+.reply-message {
+  justify-content: flex-end;
+}

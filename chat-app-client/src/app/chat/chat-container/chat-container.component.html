@@ -1,0 +1,11 @@
+<div class="chat-container">
+	<div class="chat-messages-section">
+		<div class="chats">
+			<ott-messages-container [user]="getCurrentUsername()"></ott-messages-container>
+		</div>
+		<div class="chat-panel bg-primary">
+			<ott-chat-panel (onMessage)="sendMessage($event)" (onCommand)="triggerCommand()"></ott-chat-panel>
+		</div>
+	</div>
+
+</div>

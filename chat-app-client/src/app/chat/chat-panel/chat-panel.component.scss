@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+
+  .actions-wrapper {
+    display: flex;
+
+    .chat-input {
+      flex: 1;
+      border-radius: 20px;
+      border: none;
+      margin-left: 1%;
+      padding: 1%;
+      font-size: 1.1rem;
+    }
+
+    .chat-input:focus {
+      outline: none;
+      padding: 1%;
+    }
+
+    button {
+      margin: 5px;
+    }
+  }
+}

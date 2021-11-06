@@ -1,0 +1,27 @@
+.chat-container {
+  height: 100%;
+  background-color: #e0dfdf;
+  display: flex;
+  justify-content: center;
+}
+
+.chat-messages-section {
+  max-height: 100%;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+.chats {
+  height: 92%;
+}
+.chat-panel {
+  height: 8%;
+}
+
+// /* Large screens ----------- */
+@media only screen and (min-width: 1000px) {
+  .chat-messages-section {
+    width: 60%;
+  }
+}
