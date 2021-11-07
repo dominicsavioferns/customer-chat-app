@@ -1,13 +1,31 @@
-import { Component } from '@angular/core';
+import { transition, trigger, useAnimation } from '@angular/animations';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { entryAnimation } from '../../entry.animation';
 
 @Component({
   selector: 'ott-rate',
   templateUrl: './rate.component.html',
   styleUrls: ['./rate.component.scss'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        useAnimation(entryAnimation, {
+          params: {
+            opacity: '0%',
+            time: '600ms',
+          },
+        }),
+      ]),
+    ]),
+  ],
 })
-export class RateComponent {
-  selectedRating = 0;
-  stars = [
+export class RateComponent implements OnInit {
+  @Input() author!: string;
+  @Input() user!: string;
+  @Input() selectedRating!: number;
+  @Output() onRating!: EventEmitter<number>;
+
+  public stars = [
     {
       id: 1,
       icon: 'star',
@@ -35,22 +53,35 @@ export class RateComponent {
     },
   ];
 
-  constructor() {}
+  constructor() {
+    this.onRating = new EventEmitter<number>();
+  }
 
-  selectStar(value: any): void {
-    // prevent multiple selection
-    if (this.selectedRating === 0) {
+  ngOnInit(): void {
+    if (this.selectedRating > 0) this.handleSelectStar(this.selectedRating);
+  }
+
+  public handleSelectStar(value: number): void {
+    if (this.selectedRating == 0) {
       this.stars.filter((star) => {
         if (star.id <= value) {
           star.class = 'star-gold star';
         } else {
           star.class = 'star-gray star';
         }
-
+        this.selectedRating = value;
+        this.onRating.emit(this.selectedRating);
+        return star;
+      });
+    } else {
+      this.stars.filter((star) => {
+        if (star.id <= this.selectedRating) {
+          star.class = 'star-gold star';
+        } else {
+          star.class = 'star-gray star';
+        }
         return star;
       });
     }
-
-    this.selectedRating = value;
   }
 }

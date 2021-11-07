@@ -7,6 +7,7 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: url("assets/undraw_friends_online_re_r7pq.svg");
 }
 
 .full-input-width {
@@ -17,6 +18,9 @@ body {
   background-color: $primary;
 }
 
+.bg-primary-translucent {
+  background-color: #683ab79c;
+}
 /**
     Custom Scroller
 */

@@ -7,6 +7,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { first } from 'rxjs';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { CommandType } from '../chat.enum';
 import { ChatService } from '../chat.service';
@@ -27,6 +28,8 @@ export class MessagesContainerComponent implements OnInit {
 
   @ViewChild('message', { read: ViewContainerRef })
   placeholder!: ViewContainerRef;
+
+  private customerCommands: any = {};
 
   constructor(
     private chatService: ChatService,
@@ -58,6 +61,7 @@ export class MessagesContainerComponent implements OnInit {
       case CommandType.COMPLETE:
         component = this.placeholder.createComponent(CompleteComponent);
         component.instance.author = commandResponse.author;
+        component.instance.action = this.customerCommands[CommandType.COMPLETE];
         component.instance.actions = commandResponse.command.data as [
           string,
           string
@@ -66,18 +70,35 @@ export class MessagesContainerComponent implements OnInit {
           this.handleCompleteEvent(action);
         });
         break;
+
       case CommandType.DATE:
         component = this.placeholder.createComponent(DateComponent);
+        component.instance.author = commandResponse.author;
+        component.instance.user = this.authService.username;
+        component.instance.selectedDay =
+          this.customerCommands[CommandType.DATE];
         component.instance.minDate = new Date(
           commandResponse.command.data as string
         );
-        component.instance.onDateSelected.subscribe((date) => {
+        component.instance.onDaySelected.subscribe((date) => {
           this.handleDateEvent(date);
         });
         break;
+
       case CommandType.RATE:
         component = this.placeholder.createComponent(RateComponent);
+        component.instance.author = commandResponse.author;
+        component.instance.selectedRating = this.customerCommands[
+          CommandType.RATE
+        ]
+          ? this.customerCommands[CommandType.RATE]
+          : 0;
+        component.instance.user = this.authService.username;
+        component.instance.onRating.pipe(first()).subscribe((rating) => {
+          this.handleRating(rating);
+        });
         break;
+
       case CommandType.MAP:
         component = this.placeholder.createComponent(MapComponent);
         component.instance.height = 400;
@@ -88,26 +109,48 @@ export class MessagesContainerComponent implements OnInit {
         component.instance.longitude = data.lng;
         component.instance.author = commandResponse.author;
         break;
+
       default:
         throw new Error('Invalid commandType');
     }
   }
 
   private handleCompleteEvent(action: string): void {
+    this.customerCommands[CommandType.COMPLETE] = action;
+    console.log(this.customerCommands);
     switch (action) {
       case 'Yes':
-        this.authService.logout().subscribe((_) => {
-          this.router.navigate(['/login']);
-        });
+        // this.authService.logout().subscribe((_) => {
+        //     this.router.navigate(['/login']);
+        // });
         break;
       case 'No':
         break; // do something
       default:
         throw new Error('Invalid action');
     }
+    this.sendMessageOnCommandResponseEvent(action);
   }
 
-  private handleDateEvent(date: string): void {
-    console.log(date);
+  private handleDateEvent(day: string): void {
+    console.log(day);
+    this.customerCommands[CommandType.DATE] = day;
+    console.log(this.customerCommands);
+
+    this.sendMessageOnCommandResponseEvent(day);
+  }
+
+  private handleRating(rating: number): void {
+    this.customerCommands[CommandType.RATE] = rating;
+    console.log(this.customerCommands);
+
+    this.sendMessageOnCommandResponseEvent(rating.toString());
+  }
+
+  private sendMessageOnCommandResponseEvent(response: string): void {
+    this.chatService.sendMessage({
+      author: this.authService.username,
+      message: response,
+    });
   }
 }

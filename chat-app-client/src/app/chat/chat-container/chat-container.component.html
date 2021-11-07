@@ -3,7 +3,7 @@
 		<div class="chats">
 			<ott-messages-container [user]="getCurrentUsername()"></ott-messages-container>
 		</div>
-		<div class="chat-panel bg-primary">
+		<div class="chat-panel bg-primary-translucent">
 			<ott-chat-panel (onMessage)="sendMessage($event)" (onCommand)="triggerCommand()"></ott-chat-panel>
 		</div>
 	</div>

@@ -1,4 +1,4 @@
-<div [ngClass]="['message-wrapper',chat.author==username?'reply-message':'']">
+<div [ngClass]="['message-wrapper',chat.author==username?'reply-message':'']" @fadeIn>
 	<mat-card class="message-card">
 
 		<mat-card-subtitle class="sender-name">{{chat.author}}</mat-card-subtitle>

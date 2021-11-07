@@ -1,24 +1,65 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { transition, trigger, useAnimation } from '@angular/animations';
+import * as moment from 'moment';
+import { entryAnimation } from '../../entry.animation';
 
 @Component({
   selector: 'ott-date',
   templateUrl: './date.component.html',
   styleUrls: ['./date.component.scss'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        useAnimation(entryAnimation, {
+          params: {
+            opacity: '0%',
+            time: '600ms',
+          },
+        }),
+      ]),
+    ]),
+  ],
 })
 export class DateComponent implements OnInit {
   @Input() minDate!: Date;
-  @Output() onDateSelected: EventEmitter<string>;
+  @Input() author!: string;
+  @Input() user!: string;
+  @Input() selectedDay!: string;
+  @Output() onDaySelected: EventEmitter<string>;
 
-  selected!: Date | null;
+  public days: string[] = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+  ];
 
   constructor() {
-    this.onDateSelected = new EventEmitter<string>();
+    this.onDaySelected = new EventEmitter<string>();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sortDaysByMinDate();
+  }
 
-  handleDateSelected($event: string): void {
-    this.onDateSelected.emit($event);
-    this.selected = new Date($event);
+  public handleDaySelected($event: string): void {
+    this.onDaySelected.emit($event);
+    this.selectedDay = $event;
+  }
+
+  private sortDaysByMinDate() {
+    const day = moment(this.minDate).format('dddd');
+    let slice1 = this.days.slice(this.days.indexOf(day));
+    this.days = [...slice1, ...this.days.filter((d) => !slice1.includes(d))];
+    console.log(this.days);
   }
 }
