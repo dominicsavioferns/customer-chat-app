@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { ChatService } from '../chat.service';
 import { ChatMessage } from '../interfaces/chat.interface';
@@ -12,7 +13,8 @@ import { Payload } from '../interfaces/payload.interface';
 export class ChatContainerComponent implements OnInit {
   constructor(
     private chatService: ChatService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -34,5 +36,10 @@ export class ChatContainerComponent implements OnInit {
 
   public getCurrentUsername(): string {
     return this.authService.username;
+  }
+  public logout(): void {
+    this.authService.logout().subscribe((_) => {
+      this.router.navigate(['/login']);
+    });
   }
 }

@@ -1,13 +1,14 @@
 import {
   Component,
-  ElementRef,
+  ComponentRef,
   Input,
+  OnDestroy,
   OnInit,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { first } from 'rxjs';
+import { first, Subscription } from 'rxjs';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { CommandType } from '../chat.enum';
 import { ChatService } from '../chat.service';
@@ -23,36 +24,56 @@ import { RateComponent } from '../widgets/rate/rate.component';
   templateUrl: './messages-container.component.html',
   styleUrls: ['./messages-container.component.scss'],
 })
-export class MessagesContainerComponent implements OnInit {
+export class MessagesContainerComponent implements OnInit, OnDestroy {
   @Input() user!: string;
 
   @ViewChild('message', { read: ViewContainerRef })
   placeholder!: ViewContainerRef;
 
   private customerCommands: any = {};
+  private completeWidgetsList!: ComponentRef<CompleteComponent>[];
+  private dateWidgetsList!: ComponentRef<DateComponent>[];
+  private rateWidgetsList!: ComponentRef<RateComponent>[];
+  private subscriptions: Subscription;
 
   constructor(
     private chatService: ChatService,
     private authService: AuthenticationService,
     private router: Router
-  ) {}
+  ) {
+    this.completeWidgetsList = [];
+    this.dateWidgetsList = [];
+    this.rateWidgetsList = [];
+    this.subscriptions = new Subscription();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.insertDynamicComponent();
   }
 
   private insertDynamicComponent(): void {
-    this.chatService.receiveCommand().subscribe((command) => {
-      console.log(command);
-      this.loadWidgetByCommandType(command);
-    });
+    const commandSubsScription = this.chatService.command$.subscribe(
+      (command) => {
+        console.log(command);
+        this.loadWidgetByCommandType(command);
+      }
+    );
 
-    this.chatService.receiveNewMessage().subscribe((message) => {
-      console.log(message);
-      const component = this.placeholder.createComponent(MessageComponent);
-      component.instance.username = this.user;
-      component.instance.chat = message;
-    });
+    const messageSubscription = this.chatService.message$.subscribe(
+      (message) => {
+        console.log(message);
+        const component = this.placeholder.createComponent(MessageComponent);
+        component.instance.username = this.user;
+        component.instance.chat = message;
+      }
+    );
+
+    this.subscriptions.add(commandSubsScription);
+    this.subscriptions.add(messageSubscription);
   }
 
   private loadWidgetByCommandType(commandResponse: CommandResponse): void {
@@ -69,6 +90,7 @@ export class MessagesContainerComponent implements OnInit {
         component.instance.onAction.subscribe((action) => {
           this.handleCompleteEvent(action);
         });
+        this.completeWidgetsList.push(component);
         break;
 
       case CommandType.DATE:
@@ -83,6 +105,7 @@ export class MessagesContainerComponent implements OnInit {
         component.instance.onDaySelected.subscribe((date) => {
           this.handleDateEvent(date);
         });
+        this.dateWidgetsList.push(component);
         break;
 
       case CommandType.RATE:
@@ -97,6 +120,7 @@ export class MessagesContainerComponent implements OnInit {
         component.instance.onRating.pipe(first()).subscribe((rating) => {
           this.handleRating(rating);
         });
+        this.rateWidgetsList.push(component);
         break;
 
       case CommandType.MAP:
@@ -129,6 +153,11 @@ export class MessagesContainerComponent implements OnInit {
       default:
         throw new Error('Invalid action');
     }
+    this.completeWidgetsList.pop();
+    this.completeWidgetsList.map((widget) => {
+      widget.destroy();
+    });
+    this.completeWidgetsList = [];
     this.sendMessageOnCommandResponseEvent(action);
   }
 
@@ -136,14 +165,22 @@ export class MessagesContainerComponent implements OnInit {
     console.log(day);
     this.customerCommands[CommandType.DATE] = day;
     console.log(this.customerCommands);
-
+    this.dateWidgetsList.pop();
+    this.dateWidgetsList.map((widget) => {
+      widget.destroy();
+    });
+    this.dateWidgetsList = [];
     this.sendMessageOnCommandResponseEvent(day);
   }
 
   private handleRating(rating: number): void {
     this.customerCommands[CommandType.RATE] = rating;
-    console.log(this.customerCommands);
-
+    console.log(this.rateWidgetsList);
+    this.rateWidgetsList.pop();
+    this.rateWidgetsList.map((widget) => {
+      widget.destroy();
+    });
+    this.rateWidgetsList = [];
     this.sendMessageOnCommandResponseEvent(rating.toString());
   }
 

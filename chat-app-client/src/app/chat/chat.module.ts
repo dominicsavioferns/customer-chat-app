@@ -13,6 +13,7 @@ import { RateComponent } from './widgets/rate/rate.component';
 import { DateComponent } from './widgets/date/date.component';
 import { MapComponent } from './widgets/map/map.component';
 import { ScrollBottomDirective } from './directives/scroll-bottom-directive.directive';
+import { ChatHeaderComponent } from './chat-header/chat-header.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ScrollBottomDirective } from './directives/scroll-bottom-directive.dire
     DateComponent,
     MapComponent,
     ScrollBottomDirective,
+    ChatHeaderComponent,
   ],
   imports: [
     CommonModule,

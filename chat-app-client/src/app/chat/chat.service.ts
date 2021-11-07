@@ -15,29 +15,21 @@ export class ChatService {
   private socket: Socket;
   constructor() {
     this.socket = io(environment.serverUrl);
+
+    this.socket.on('message', (message) => {
+      this.message$.next(message);
+    });
+
+    this.socket.on('command', (command) => {
+      this.command$.next(command);
+    });
   }
 
   public sendMessage(payload: Payload) {
     this.socket.emit('message', payload);
   }
 
-  public receiveNewMessage(): Observable<ChatMessage> {
-    this.socket.on('message', (message) => {
-      this.message$.next(message);
-    });
-
-    return this.message$.asObservable();
-  }
-
   public triggerCommand(payload: Payload) {
     this.socket.emit('command', payload);
-  }
-
-  public receiveCommand(): Observable<CommandResponse> {
-    this.socket.on('command', (command) => {
-      this.command$.next(command);
-    });
-
-    return this.command$.asObservable();
   }
 }
