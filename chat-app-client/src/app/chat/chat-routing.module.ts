@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ChatContainerComponent } from './chat-container/chat-container.component';
 
-const routes: Routes = [{ path: 'chat', component: ChatContainerComponent }];
+const routes: Routes = [{ path: '', component: ChatContainerComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

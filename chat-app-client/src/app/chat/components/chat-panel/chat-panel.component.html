@@ -4,12 +4,12 @@
 		<input class="chat-input" [formControl]="chatMessage" placeholder="Type here..." (keyup.enter)="handleSendMessage()" autofocus>
 
 		<!-- Send Message Button -->
-		<button mat-mini-fab color="accent" (click)="handleSendMessage()">
+		<button mat-mini-fab color="accent" matTooltip="send" (click)="handleSendMessage()">
 			<mat-icon>send</mat-icon>
 		</button>
 
 		<!-- Trigger Command Button -->
-		<button mat-mini-fab color="accent" (click)="handleSendCommand()">
+		<button mat-mini-fab color="accent" (click)="handleSendCommand()" matTooltip="trigger command">
 			<mat-icon>assignment</mat-icon>
 		</button>
 	</div>

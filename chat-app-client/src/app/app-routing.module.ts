@@ -7,20 +7,20 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: '/login',
-    pathMatch: 'full',
+    pathMatch: 'full'
   },
   {
-    path: '',
+    path: 'login',
     loadChildren: () =>
       import('./authentication/authentication.module').then(
         (m) => m.AuthenticationModule
-      ),
+      )
   },
   {
-    path: '',
+    path: 'chat',
     loadChildren: () => import('./chat/chat.module').then((m) => m.ChatModule),
-    canActivate: [AuthGuard],
-  },
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

@@ -25,6 +25,12 @@ body {
   background-color: #683ab79c;
 }
 
+// material tooltip override
+
+.mat-tooltip {
+    font-size: 0.8rem !important;
+}
+
 /**
     Custom Scroller
 */

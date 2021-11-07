@@ -32,18 +32,10 @@ export class AuthGuard implements CanActivate {
      * redirect to login page
      * return false
      */
-    if (!this.authService.username && state.url !== '/login') {
+    if (!this.authService.username) {
       this.router.navigate(['/login']);
       return false;
-    } else if (state.url === '/login') {
-      /**
-       * if username is set and user tried to go to login page
-       * redirect to chat
-       * return false
-       */
-      this.router.navigate(['/chat']);
-      return false;
-    }
+    } 
 
     return true;
   }
