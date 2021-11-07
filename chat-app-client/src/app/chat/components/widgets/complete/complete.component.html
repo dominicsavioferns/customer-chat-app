@@ -1,0 +1,25 @@
+<div class="message-wrapper" @fadeIn>
+	<mat-card class="message-card">
+
+		<!-- Author of the message -->
+		<mat-card-subtitle class="sender-name">{{author}}</mat-card-subtitle>
+
+		<mat-card-content>
+			<!-- show if action was never selected -->
+		  <p *ngIf="!action">Are you sure you want to close this conversation?</p>
+
+		  <!-- show if action was already selected -->
+		  <p *ngIf="action">You selected '{{action}}' to close this conversation.</p>
+		  
+		</mat-card-content>
+
+		<!-- Action buttons -->
+		<mat-card-actions align="end">
+			<button *ngFor="let actionType of actions" 
+			mat-raised-button [color]="actionType=='No'?'warn':'primary'"
+			type="button"
+			[disabled]="action && action !==actionType"
+			(click)="handleAction(actionType)">{{actionType}}</button>
+		</mat-card-actions>
+	</mat-card>
+</div>

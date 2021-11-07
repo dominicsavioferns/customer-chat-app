@@ -1,4 +1,4 @@
 export interface Payload {
-  author: string;
+  author: string | null;
   message: string;
 }

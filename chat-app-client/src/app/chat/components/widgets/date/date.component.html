@@ -1,0 +1,21 @@
+<div class="message-wrapper" @fadeIn>
+	<mat-card class="message-card">
+		<!-- Author of the message-->
+		<mat-card-subtitle class="sender-name">{{author}}</mat-card-subtitle>
+
+		<mat-card-content>
+			<!-- show if date was not selected -->
+				<p *ngIf="!selectedDay">Please select an appointment day.</p>
+				<!-- show if date is already selected -->
+				<p *ngIf="selectedDay">{{user}} {{selectedDay}}</p>
+				<div fxLayout="row" fxLayoutAlign="start center" >
+					<!-- render days of week button here -->
+					<button *ngFor="let day of days" (click)="handleDaySelected(day)" 
+						class="day-btn"  mat-stroked-button [disabled]="selectedDay && selectedDay!==day.toString()" color="primary" >
+						{{day}}
+					</button>
+				</div>
+		</mat-card-content>
+	</mat-card>
+</div>
+

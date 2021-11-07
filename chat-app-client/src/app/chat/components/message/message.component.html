@@ -1,0 +1,17 @@
+<div [ngClass]="['message-wrapper',chat.author==username?'reply-message':'']" @fadeIn>
+	<mat-card class="message-card">
+
+		<!-- Author of the message -->
+		<mat-card-subtitle class="sender-name">{{chat.author}}</mat-card-subtitle>
+
+		<!-- Message content -->
+		<mat-card-content>
+		  <p>{{chat.message}}</p>
+		</mat-card-content>
+
+		<!-- message timestamp -->
+		<mat-card-footer align="right" class="message-footer">
+			<i>{{toMomentTime(chat.timestamp)}}</i> 
+		  </mat-card-footer>
+	  </mat-card>
+</div>

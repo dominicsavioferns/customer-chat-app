@@ -4,16 +4,19 @@ html,
 body {
   height: 100%;
 }
+
+// set fonts and background
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background: url("assets/undraw_friends_online_re_r7pq.svg");
+  background: url("assets/background.svg");
 }
 
 .full-input-width {
   width: 100%;
 }
 
+// classes for backgrounds
 .bg-primary {
   background-color: $primary;
 }
@@ -21,6 +24,7 @@ body {
 .bg-primary-translucent {
   background-color: #683ab79c;
 }
+
 /**
     Custom Scroller
 */

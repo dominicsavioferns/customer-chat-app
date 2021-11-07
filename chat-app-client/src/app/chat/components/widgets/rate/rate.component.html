@@ -1,0 +1,21 @@
+<div class="message-wrapper" @fadeIn>
+	<mat-card class="message-card">
+		<!-- Author of the message -->
+		<mat-card-subtitle class="sender-name">{{author}}</mat-card-subtitle>
+
+		<mat-card-content>
+			<div class="star-rating-container star-rating-animation" fxLayout="row" fxLayoutAlign="start center" >
+				<!-- show if user did not rate -->
+				<p *ngIf="selectedRating===0">Hi {{user}}, please rate this conversation based on your experience. </p>
+				<!-- show if user already rated -->
+				<p *ngIf="selectedRating>0">Thank you for your feedback. </p>
+
+				<div *ngFor="let star of stars" [ngClass]="[star.class]" (click)="handleSelectStar(star.id)">
+					<!-- render stars here -->
+					<mat-icon>{{star.icon}}</mat-icon>
+				</div>
+				
+			</div>
+		</mat-card-content>
+	</mat-card>
+</div>

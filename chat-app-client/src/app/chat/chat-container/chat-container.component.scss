@@ -11,21 +11,23 @@
   display: flex;
   position: relative;
   flex-direction: column;
-}
-.chats {
-  height: 92%;
-}
-.chat-panel {
-  height: 8%;
+
+  .chats {
+    height: 92%;
+  }
+  .chat-panel {
+    height: 8%;
+  }
+
+  .chat-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 3;
+  }
 }
 
-.chat-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 3;
-}
 // /* Large screens ----------- */
 @media only screen and (min-width: 1000px) {
   .chat-messages-section {

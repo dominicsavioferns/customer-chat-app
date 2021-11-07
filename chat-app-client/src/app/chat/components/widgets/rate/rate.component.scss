@@ -1,0 +1,43 @@
+.message-wrapper {
+  margin: 1%;
+  display: flex;
+
+  .message-card {
+    min-width: 20%;
+    max-width: 80%;
+
+    .sender-name {
+      font-weight: bold;
+      color: #673ab7;
+    }
+
+    .star {
+      margin: 0px 0px;
+      color: #a9a5a5;
+      display: inline-block;
+      cursor: pointer;
+      transition: all 0.3s;
+      transform: scale(1);
+
+      .mat-icon {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .star-gold {
+      color: rgb(252, 187, 67);
+    }
+
+    /* make all stars orange*/
+    .star-rating-animation:hover .star-hover {
+      color: orange;
+    }
+    /* make all stars right from selected gray*/
+    .star-rating-animation .star-hover:hover ~ .star-hover {
+      color: #ddd;
+    }
+    .star-rating-animation .star-hover:hover {
+      transform: scale(1.3);
+    }
+  }
+}

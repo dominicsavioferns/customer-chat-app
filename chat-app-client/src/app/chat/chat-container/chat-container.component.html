@@ -1,12 +1,17 @@
 <div class="chat-container">
-
+	<!-- Messagees Panel -->
 	<div class="chat-messages-section">
+		<!-- Chat Header -->
 		<div class="chat-header bg-primary-translucent">
 			<ott-chat-header (onLogout)="logout()"></ott-chat-header>
 		</div>
+
+		<!-- Chats and widgets go here -->
 		<div class="chats">
 			<ott-messages-container [user]="getCurrentUsername()"></ott-messages-container>
 		</div>
+
+		<!-- Chats action panel i.e type and send message and triiger command -->
 		<div class="chat-panel bg-primary-translucent">
 			<ott-chat-panel (onMessage)="sendMessage($event)" (onCommand)="triggerCommand()"></ott-chat-panel>
 		</div>
