@@ -192,10 +192,22 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
       default:
         throw new Error('Invalid action');
     }
-    this.completeWidgetsList.pop();
+
+    let currentRef =
+      this.completeWidgetsList.pop() as ComponentRef<CompleteComponent>;
+
+    /**
+     * destroy all old widgets
+     */
     this.completeWidgetsList.map((widget) => {
       widget.destroy();
     });
+
+    /**
+     * update current widget state
+     */
+    currentRef.instance.action = action;
+
     this.completeWidgetsList = [];
     this.sendMessageOnCommandResponseEvent(action);
   }
@@ -209,10 +221,21 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
     console.log(day);
     this.customerCommands[CommandType.DATE] = day;
     console.log(this.customerCommands);
-    this.dateWidgetsList.pop();
+
+    let currentRef = this.dateWidgetsList.pop() as ComponentRef<DateComponent>;
+
+    /**
+     * destroy all old widgets
+     */
     this.dateWidgetsList.map((widget) => {
       widget.destroy();
     });
+
+    /**
+     * update the latest widget state
+     */
+    currentRef.instance.selectedDay = day;
+
     this.dateWidgetsList = [];
     this.sendMessageOnCommandResponseEvent(day);
   }
@@ -226,10 +249,22 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
   private handleRating(rating: number): void {
     this.customerCommands[CommandType.RATE] = rating;
     console.log(this.rateWidgetsList);
-    this.rateWidgetsList.pop();
+
+    let currentRef = this.rateWidgetsList.pop() as ComponentRef<RateComponent>;
+
+    /**
+     * destry old widgets
+     */
     this.rateWidgetsList.map((widget) => {
       widget.destroy();
     });
+
+    /**
+     * update state of the latest widget to keep widget updated
+     */
+    currentRef.instance.selectedRating = rating;
+    currentRef.instance.handleSelectStar(rating);
+
     this.rateWidgetsList = [];
     this.sendMessageOnCommandResponseEvent(rating.toString());
   }
