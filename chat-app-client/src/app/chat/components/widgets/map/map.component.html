@@ -2,13 +2,13 @@
 	<mat-card class="message-card">
 		<!-- Author of the message -->
 		<mat-card-subtitle class="sender-name">{{author}}</mat-card-subtitle>
-		
+
 		<!-- load map here -->
 		<mat-card-content>
 			<p>Our center closest to you.</p>
-			<iframe [width]="width" [height]="height" frameborder="0"  marginheight="0" marginwidth="0" 
-  				[src]="getMapsUrl()">
- 			</iframe>
+			<iframe [width]="width" [height]="height" frameborder="0" marginheight="0" marginwidth="0"
+				[src]="getSanitizedMapsUrl()">
+			</iframe>
 		</mat-card-content>
 	</mat-card>
 </div>
