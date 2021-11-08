@@ -23,7 +23,7 @@ export class ChatService {
 	/**
 	 * instance of socket connection
 	 */
-	private socket: Socket;
+	public socket: Socket;
 
 	constructor() {
 
@@ -50,15 +50,15 @@ export class ChatService {
 	 * @description sends message to server via socket
 	 * @param {Payload} payload
 	 */
-	public sendMessage(payload: Payload): void {
-		this.socket.emit('message', payload);
+	public sendMessage(payload: Payload): Socket {
+		return this.socket.emit('message', payload);
 	}
 
 	/**
 	 * @description sends event to socket to trigger a command
 	 * @param {Payload} payload
 	 */
-	public triggerCommand(payload: Payload): void {
-		this.socket.emit('command', payload);
+	public triggerCommand(payload: Payload): Socket {
+		return this.socket.emit('command', payload);
 	}
 }
