@@ -112,6 +112,9 @@
                                     <a href="../components/DateComponent.html" >DateComponent</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                </li>
+                                <li class="link">
                                     <a href="../components/LoginComponent.html" >LoginComponent</a>
                                 </li>
                                 <li class="link">
@@ -125,6 +128,9 @@
                                 </li>
                                 <li class="link">
                                     <a href="../components/RateComponent.html" >RateComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                 </li>
                         </ul>
                     </li>
@@ -324,6 +330,9 @@
                                            <a href="../components/DateComponent.html" >DateComponent</a>
                                        </li>
                                        <li class="link">
+                                           <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                       </li>
+                                       <li class="link">
                                            <a href="../components/LoginComponent.html" >LoginComponent</a>
                                        </li>
                                        <li class="link">
@@ -337,6 +346,9 @@
                                        </li>
                                        <li class="link">
                                            <a href="../components/RateComponent.html" >RateComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                        </li>
                                </ul>
                            </li>
@@ -493,30 +505,33 @@ import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
 import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
 import { MatDatepickerModule } from &#x27;@angular/material/datepicker&#x27;;
 import { MatNativeDateModule } from &#x27;@angular/material/core&#x27;;
+import { MatListModule } from &#x27;@angular/material/list&#x27;;
 
 @NgModule({
-  imports: [
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-  ],
-  exports: [
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-  ],
+	imports: [
+		MatInputModule,
+		MatCardModule,
+		MatButtonModule,
+		MatDividerModule,
+		MatIconModule,
+		MatTooltipModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatListModule
+	],
+	exports: [
+		MatInputModule,
+		MatCardModule,
+		MatButtonModule,
+		MatDividerModule,
+		MatIconModule,
+		MatTooltipModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatListModule
+	],
 })
-export class MaterialModule {}
+export class MaterialModule { }
 </code></pre>
     </div>
 </div>

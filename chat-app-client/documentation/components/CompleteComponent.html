@@ -112,6 +112,9 @@
                                     <a href="../components/DateComponent.html" >DateComponent</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                </li>
+                                <li class="link">
                                     <a href="../components/LoginComponent.html" >LoginComponent</a>
                                 </li>
                                 <li class="link">
@@ -125,6 +128,9 @@
                                 </li>
                                 <li class="link">
                                     <a href="../components/RateComponent.html" >RateComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                 </li>
                         </ul>
                     </li>
@@ -324,6 +330,9 @@
                                            <a href="../components/DateComponent.html" >DateComponent</a>
                                        </li>
                                        <li class="link">
+                                           <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                       </li>
+                                       <li class="link">
                                            <a href="../components/LoginComponent.html" >LoginComponent</a>
                                        </li>
                                        <li class="link">
@@ -337,6 +346,9 @@
                                        </li>
                                        <li class="link">
                                            <a href="../components/RateComponent.html" >RateComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                        </li>
                                </ul>
                            </li>
@@ -567,7 +579,7 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
-                            <code>constructor(changeDetector: <a href="https://angular.io/docs/ts/latest/api/core/index/ChangeDetectorRef-class.html" target="_blank" >ChangeDetectorRef</a>)</code>
+                            <code>constructor()</code>
                         </td>
                     </tr>
     
@@ -674,59 +686,59 @@
         <div class="tab-pane fade tab-source-code" id="source">
             <pre><code class="hljs javascript">import { transition, trigger, useAnimation } from &#x27;@angular/animations&#x27;;
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
 } from &#x27;@angular/core&#x27;;
 
 import { entryAnimation } from &#x27;../../../animations/entry.animation&#x27;;
 
 @Component({
-  selector: &#x27;ott-complete&#x27;,
-  templateUrl: &#x27;./complete.component.html&#x27;,
-  styleUrls: [&#x27;./complete.component.scss&#x27;],
-  animations: [
-    trigger(&#x27;fadeIn&#x27;, [
-      transition(&#x27;:enter&#x27;, [
-        useAnimation(entryAnimation, {
-          params: {
-            opacity: &#x27;0%&#x27;,
-            time: &#x27;600ms&#x27;,
-          },
-        }),
-      ]),
-    ]),
-  ],
+	selector: &#x27;ott-complete&#x27;,
+	templateUrl: &#x27;./complete.component.html&#x27;,
+	styleUrls: [&#x27;./complete.component.scss&#x27;],
+	animations: [
+		trigger(&#x27;fadeIn&#x27;, [
+			transition(&#x27;:enter&#x27;, [
+				useAnimation(entryAnimation, {
+					params: {
+						opacity: &#x27;0%&#x27;,
+						time: &#x27;600ms&#x27;,
+					},
+				}),
+			]),
+		]),
+	],
 })
 export class CompleteComponent implements OnInit {
-  @Input() author!: string;
-  @Input() actions!: string[];
-  @Input() action!: string;
+	@Input() author!: string;
+	@Input() actions!: string[];
+	@Input() action!: string;
 
-  /**
-   * event when user selctes an action
-   */
-  @Output() onAction: EventEmitter&lt;string&gt;;
+	/**
+	 * event when user selctes an action
+	 */
+	@Output() onAction: EventEmitter&lt;string&gt;;
 
-  constructor(private changeDetector: ChangeDetectorRef) {
-    this.onAction &#x3D; new EventEmitter&lt;string&gt;();
-  }
+	constructor() {
+		this.onAction &#x3D; new EventEmitter&lt;string&gt;();
+	}
 
-  ngOnInit(): void {}
+	ngOnInit(): void { }
 
-  /**
-   * @description method handles action selected by user
-   * @param {string} actionType
-   */
-  public handleAction(actionType: string): void {
-    if (!this.action) {
-      this.onAction.emit(actionType);
-      this.action &#x3D; actionType;
-    }
-  }
+	/**
+	 * @description method handles action selected by user
+	 * @param {string} actionType
+	 */
+	public handleAction(actionType: string): void {
+		if (!this.action) {
+			this.onAction.emit(actionType);
+			this.action &#x3D; actionType;
+		}
+	}
 }
 </code></pre>
         </div>

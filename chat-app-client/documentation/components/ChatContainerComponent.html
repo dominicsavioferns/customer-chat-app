@@ -112,6 +112,9 @@
                                     <a href="../components/DateComponent.html" >DateComponent</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                </li>
+                                <li class="link">
                                     <a href="../components/LoginComponent.html" >LoginComponent</a>
                                 </li>
                                 <li class="link">
@@ -125,6 +128,9 @@
                                 </li>
                                 <li class="link">
                                     <a href="../components/RateComponent.html" >RateComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                 </li>
                         </ul>
                     </li>
@@ -324,6 +330,9 @@
                                            <a href="../components/DateComponent.html" >DateComponent</a>
                                        </li>
                                        <li class="link">
+                                           <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                       </li>
+                                       <li class="link">
                                            <a href="../components/LoginComponent.html" >LoginComponent</a>
                                        </li>
                                        <li class="link">
@@ -337,6 +346,9 @@
                                        </li>
                                        <li class="link">
                                            <a href="../components/RateComponent.html" >RateComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                        </li>
                                </ul>
                            </li>
@@ -462,7 +474,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>src/app/chat/chat-container/chat-container.component.ts</code>
+    <code>src/app/chat/pages/chat-container/chat-container.component.ts</code>
 </p>
 
 
@@ -665,6 +677,38 @@
                     </tr>
                 </tbody>
             </table>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <b><span class="modifier">Public</span> closeChat</b>
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td class="col-md-4">
+                                <span class="modifier-icon method fa fa-play circle">
+                                    <span class="fa fa-circle"></span>
+                                </span>
+                            <code>closeChat()</code>
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description">
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns: </b>    <code>void</code>
+    
+                                </div>
+                                    <div class="io-description">
+                                        
+                                    </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
     </section>
 
 </div>
@@ -674,68 +718,77 @@ import { Title } from &#x27;@angular/platform-browser&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
 
 import { AuthenticationService } from &#x27;src/app/authentication/authentication.service&#x27;;
-import { ChatService } from &#x27;../chat.service&#x27;;
-import { Payload } from &#x27;../interfaces/payload.interface&#x27;;
+import { ChatService } from &#x27;../../chat.service&#x27;;
+import { Payload } from &#x27;../../interfaces/payload.interface&#x27;;
 
 @Component({
-  selector: &#x27;ott-chat-container&#x27;,
-  templateUrl: &#x27;./chat-container.component.html&#x27;,
-  styleUrls: [&#x27;./chat-container.component.scss&#x27;],
+	selector: &#x27;ott-chat-container&#x27;,
+	templateUrl: &#x27;./chat-container.component.html&#x27;,
+	styleUrls: [&#x27;./chat-container.component.scss&#x27;],
 })
 export class ChatContainerComponent implements OnInit {
-  constructor(
-    private chatService: ChatService,
-    private authService: AuthenticationService,
-    private router: Router,
-    private title: Title
-  ) {
-    this.title.setTitle(&#x27;Ottonova Bot | Chat&#x27;);
-  }
+	constructor(
+		private chatService: ChatService,
+		private authService: AuthenticationService,
+		private router: Router,
+		private title: Title
+	) {
+		this.title.setTitle(&#x27;Ottonova Bot | Chat&#x27;);
+	}
 
-  ngOnInit(): void {}
+	ngOnInit(): void { }
 
-  /**
-   * @description method invokes chat service to send message via socket
-   * emits a change in the subject to add users message to the chat section
-   * the method is invoke in response the to send message event from the chat panel
-   * @param $event - message from event in chat panel
-   */
-  public sendMessage($event: string): void {
-    const payload: Payload &#x3D; {
-      author: this.authService.username,
-      message: $event,
-    };
+	/**
+	 * @description method invokes chat service to send message via socket
+	 * emits a change in the subject to add users message to the chat section
+	 * the method is invoke in response the to send message event from the chat panel
+	 * @param $event - message from event in chat panel
+	 */
+	public sendMessage($event: string): void {
+		const payload: Payload &#x3D; {
+			author: this.authService.username,
+			message: $event,
+		};
 
-    this.chatService.message$.next({ ...payload, timestamp: new Date() });
-    this.chatService.sendMessage(payload);
-  }
+		this.chatService.message$.next({ ...payload, timestamp: new Date() });
+		this.chatService.sendMessage(payload);
+	}
 
-  /**
-   * @description method to trigger a command from the server
-   * invokes triggerCommand method in the chat service
-   */
-  public triggerCommand(): void {
-    const payload: Payload &#x3D; { author: this.authService.username, message: &#x27;&#x27; };
-    this.chatService.triggerCommand(payload);
-  }
+	/**
+	 * @description method to trigger a command from the server
+	 * invokes triggerCommand method in the chat service
+	 */
+	public triggerCommand(): void {
+		const payload: Payload &#x3D; { author: this.authService.username, message: &#x27;&#x27; };
+		this.chatService.triggerCommand(payload);
+	}
 
-  /**
-   * @description method to get the username of current user
-   * @returns {string}
-   */
-  public getCurrentUsername(): string | null {
-    return this.authService.username;
-  }
+	/**
+	 * @description method to get the username of current user
+	 * @returns {string}
+	 */
+	public getCurrentUsername(): string | null {
+		return this.authService.username;
+	}
 
-  /**
-   * @description method to logout current user
-   * redirects to login page on success
-   */
-  public logout(): void {
-    this.authService.logout().subscribe((_) &#x3D;&gt; {
-      this.router.navigate([&#x27;/login&#x27;]);
-    });
-  }
+	/**
+	 * @description method to logout current user
+	 * redirects to login page on success
+	 */
+	public logout(): void {
+		this.authService.logout().subscribe((_) &#x3D;&gt; {
+			this.chatService.resetChatResponses();
+			this.router.navigate([&#x27;/login&#x27;]);
+		});
+	}
+
+	/**
+	 * @description method to close chat
+	 * redirects to chat responses
+	 */
+	public closeChat(): void {
+		this.router.navigate([&#x27;/chat/responses&#x27;]);
+	}
 }
 </code></pre>
         </div>

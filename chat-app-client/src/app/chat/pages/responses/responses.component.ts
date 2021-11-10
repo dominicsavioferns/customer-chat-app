@@ -18,12 +18,13 @@ export class ResponsesComponent {
 		private authService: AuthenticationService,
 		private router: Router
 	) {
-		this.chatResponses = this.chatService.getAllResponses() | {} as any;
-		this.commands = !this.chatResponses ? Object.keys(this.chatResponses) : [];
+		console.log(this.chatService.getAllResponses())
+		this.chatResponses = this.chatService.getAllResponses();
+		this.commands = this.chatResponses ? Object.keys(this.chatResponses) : [];
 	}
 
 	hasResponses(): boolean {
-		return Object.keys(this.chatResponses).length > 0;
+		return this.commands.length > 0;
 	}
 
 	handleLogout(): void {

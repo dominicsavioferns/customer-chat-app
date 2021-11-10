@@ -112,6 +112,9 @@
                                     <a href="../components/DateComponent.html" >DateComponent</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                </li>
+                                <li class="link">
                                     <a href="../components/LoginComponent.html" >LoginComponent</a>
                                 </li>
                                 <li class="link">
@@ -125,6 +128,9 @@
                                 </li>
                                 <li class="link">
                                     <a href="../components/RateComponent.html" >RateComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                 </li>
                         </ul>
                     </li>
@@ -324,6 +330,9 @@
                                            <a href="../components/DateComponent.html" >DateComponent</a>
                                        </li>
                                        <li class="link">
+                                           <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                       </li>
+                                       <li class="link">
                                            <a href="../components/LoginComponent.html" >LoginComponent</a>
                                        </li>
                                        <li class="link">
@@ -337,6 +346,9 @@
                                        </li>
                                        <li class="link">
                                            <a href="../components/RateComponent.html" >RateComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                        </li>
                                </ul>
                            </li>
@@ -501,33 +513,63 @@ import { Observable, of } from &#x27;rxjs&#x27;;
 import { Credentials } from &#x27;./interfaces/credentials.interface&#x27;;
 
 @Injectable({
-  providedIn: &#x27;root&#x27;,
+	providedIn: &#x27;root&#x27;,
 })
 export class AuthenticationService {
-  /**
-   * contains user name of the user that is currently signed in
-   * the value is set on login
-   */
-  public username!: string | null;
+	/**
+	 * contains user name of the user that is currently signed in
+	 * the value is set on login
+	 */
+	public username!: string | null;
 
-  /**
-   * @description method for user login using credentials
-   * @param {Credentials} credentials
-   * @returns {Observable} - mock observable
-   */
-  public login(credentials: Credentials): Observable&lt;boolean&gt; {
-    this.username &#x3D; credentials.username;
-    return of(true);
-  }
+	/**
+	 * List of allowed user credentials
+	 */
+	private allowedCredentials: Credentials[];
 
-  /**
-   * @description logs out user and sets username to empty string
-   * @returns {Observable} - mock Observable
-   */
-  public logout(): Observable&lt;boolean&gt; {
-    this.username &#x3D; null;
-    return of(true);
-  }
+	constructor() {
+		this.allowedCredentials &#x3D; [
+			{
+				username: &#x27;dominic&#x27;,
+				password: &#x27;savio&#x27;,
+			},
+			{
+				username: &#x27;john&#x27;,
+				password: &#x27;doe&#x27;
+			},
+			{
+				username: &#x27;foo&#x27;,
+				password: &#x27;bar&#x27;
+			}
+		]
+	}
+
+	/**
+	 * @description method for user login using credentials
+	 * @param {Credentials} credentials
+	 * @returns {Observable} - mock observable
+	 */
+	public login(credentials: Credentials): Observable&lt;boolean&gt; {
+		let credential &#x3D; this.allowedCredentials.find(
+			credential &#x3D;&gt; credential.username &#x3D;&#x3D; credential.username &amp;&amp; credential.password &#x3D;&#x3D; credentials.password
+		);
+
+		if (!credential) {
+			return of(false);
+		}
+
+		this.username &#x3D; credential.username;
+		return of(true);
+	}
+
+	/**
+	 * @description logs out user and sets username to empty string
+	 * @returns {Observable} - mock Observable
+	 */
+	public logout(): Observable&lt;boolean&gt; {
+		this.username &#x3D; null;
+		return of(true);
+	}
 }
 </code></pre>
     </div>

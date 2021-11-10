@@ -112,6 +112,9 @@
                                     <a href="../components/DateComponent.html" >DateComponent</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                </li>
+                                <li class="link">
                                     <a href="../components/LoginComponent.html" >LoginComponent</a>
                                 </li>
                                 <li class="link">
@@ -125,6 +128,9 @@
                                 </li>
                                 <li class="link">
                                     <a href="../components/RateComponent.html" >RateComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                 </li>
                         </ul>
                     </li>
@@ -324,6 +330,9 @@
                                            <a href="../components/DateComponent.html" >DateComponent</a>
                                        </li>
                                        <li class="link">
+                                           <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                       </li>
+                                       <li class="link">
                                            <a href="../components/LoginComponent.html" >LoginComponent</a>
                                        </li>
                                        <li class="link">
@@ -337,6 +346,9 @@
                                        </li>
                                        <li class="link">
                                            <a href="../components/RateComponent.html" >RateComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                        </li>
                                </ul>
                            </li>
@@ -585,7 +597,7 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
-                            <b><span class="modifier">Public</span> getMapsUrl</b>
+                            <b><span class="modifier">Public</span> getSanitizedMapsUrl</b>
                         </td>
                     </tr>
     
@@ -594,7 +606,7 @@
                                 <span class="modifier-icon method fa fa-play circle">
                                     <span class="fa fa-circle"></span>
                                 </span>
-                            <code>getMapsUrl()</code>
+                            <code>getSanitizedMapsUrl()</code>
                         </td>
                     </tr>
     
@@ -654,12 +666,12 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
-                            <b> number</b>
+                            <b> string</b>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <code>number:     <code>any</code>
+                            <code>string:     <code>any</code>
     </bcode>
                         </td>
                     </tr>
@@ -669,12 +681,12 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
-                            <b> number</b>
+                            <b> string</b>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <code>number:     <code>any</code>
+                            <code>string:     <code>any</code>
     </bcode>
                         </td>
                     </tr>
@@ -700,11 +712,11 @@
         <div class="tab-pane fade tab-source-code" id="source">
             <pre><code class="hljs javascript">import { transition, trigger, useAnimation } from &#x27;@angular/animations&#x27;;
 import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnInit,
+	AfterViewInit,
+	ChangeDetectorRef,
+	Component,
+	Input,
+	OnInit,
 } from &#x27;@angular/core&#x27;;
 import { DomSanitizer, SafeResourceUrl } from &#x27;@angular/platform-browser&#x27;;
 
@@ -712,50 +724,51 @@ import { environment } from &#x27;src/environments/environment&#x27;;
 import { entryAnimation } from &#x27;../../../animations/entry.animation&#x27;;
 
 @Component({
-  selector: &#x27;ott-map&#x27;,
-  templateUrl: &#x27;./map.component.html&#x27;,
-  styleUrls: [&#x27;./map.component.scss&#x27;],
-  animations: [
-    trigger(&#x27;fadeIn&#x27;, [
-      transition(&#x27;:enter&#x27;, [
-        useAnimation(entryAnimation, {
-          params: {
-            opacity: &#x27;0%&#x27;,
-            time: &#x27;600ms&#x27;,
-          },
-        }),
-      ]),
-    ]),
-  ],
+	selector: &#x27;ott-map&#x27;,
+	templateUrl: &#x27;./map.component.html&#x27;,
+	styleUrls: [&#x27;./map.component.scss&#x27;],
+	animations: [
+		trigger(&#x27;fadeIn&#x27;, [
+			transition(&#x27;:enter&#x27;, [
+				useAnimation(entryAnimation, {
+					params: {
+						opacity: &#x27;0%&#x27;,
+						time: &#x27;600ms&#x27;,
+					},
+				}),
+			]),
+		]),
+	],
 })
 export class MapComponent implements OnInit, AfterViewInit {
-  @Input() latitude!: number;
-  @Input() longitude!: number;
-  @Input() height!: number;
-  @Input() width!: number;
-  @Input() author!: string;
+	@Input() latitude!: number;
+	@Input() longitude!: number;
+	@Input() height!: string;
+	@Input() width!: string;
+	@Input() author!: string;
 
-  constructor(
-    private sanitizer: DomSanitizer,
-    private changeDetector: ChangeDetectorRef
-  ) {}
-  ngAfterViewInit(): void {
-    this.changeDetector.detach();
-  }
+	constructor(
+		private sanitizer: DomSanitizer,
+		private changeDetector: ChangeDetectorRef
+	) { }
+	ngAfterViewInit(): void {
+		this.changeDetector.detach();
+	}
 
-  ngOnInit(): void {}
+	ngOnInit(): void { }
 
-  /**
-   * @description builds map url with lat, long and api key
-   * @returns {SafeResourceUrl} - sanitized url
-   */
-  public getMapsUrl(): SafeResourceUrl {
-    const url &#x3D; environment.googleMapsUrl
-      .replace(&#x27;{lat}&#x27;, this.latitude.toString())
-      .replace(&#x27;{key}&#x27;, environment.googleApiKey)
-      .replace(&#x27;{long}&#x27;, this.longitude.toString());
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
+	/**
+	 * @description builds map url with lat, long and api key
+	 * and sanitizes it
+	 * @returns {SafeResourceUrl} - sanitized url
+	 */
+	public getSanitizedMapsUrl(): SafeResourceUrl {
+		const url &#x3D; environment.googleMapsUrl
+			.replace(&#x27;{lat}&#x27;, this.latitude.toString())
+			.replace(&#x27;{key}&#x27;, environment.googleApiKey)
+			.replace(&#x27;{long}&#x27;, this.longitude.toString());
+		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+	}
 }
 </code></pre>
         </div>

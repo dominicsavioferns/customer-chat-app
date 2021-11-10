@@ -112,6 +112,9 @@
                                     <a href="../components/DateComponent.html" >DateComponent</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                </li>
+                                <li class="link">
                                     <a href="../components/LoginComponent.html" >LoginComponent</a>
                                 </li>
                                 <li class="link">
@@ -125,6 +128,9 @@
                                 </li>
                                 <li class="link">
                                     <a href="../components/RateComponent.html" >RateComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                 </li>
                         </ul>
                     </li>
@@ -324,6 +330,9 @@
                                            <a href="../components/DateComponent.html" >DateComponent</a>
                                        </li>
                                        <li class="link">
+                                           <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                       </li>
+                                       <li class="link">
                                            <a href="../components/LoginComponent.html" >LoginComponent</a>
                                        </li>
                                        <li class="link">
@@ -337,6 +346,9 @@
                                        </li>
                                        <li class="link">
                                            <a href="../components/RateComponent.html" >RateComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                        </li>
                                </ul>
                            </li>
@@ -526,13 +538,13 @@
 </div>
         <div class="tab-pane fade tab-source-code" id="source">
             <pre><code class="hljs javascript">import {
-  Component,
-  ComponentRef,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
+	Component,
+	ComponentRef,
+	Input,
+	OnDestroy,
+	OnInit,
+	ViewChild,
+	ViewContainerRef,
 } from &#x27;@angular/core&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
 
@@ -549,263 +561,257 @@ import { MapComponent } from &#x27;../widgets/map/map.component&#x27;;
 import { RateComponent } from &#x27;../widgets/rate/rate.component&#x27;;
 
 @Component({
-  selector: &#x27;ott-messages-container&#x27;,
-  templateUrl: &#x27;./messages-container.component.html&#x27;,
-  styleUrls: [&#x27;./messages-container.component.scss&#x27;],
+	selector: &#x27;ott-messages-container&#x27;,
+	templateUrl: &#x27;./messages-container.component.html&#x27;,
+	styleUrls: [&#x27;./messages-container.component.scss&#x27;],
 })
 export class MessagesContainerComponent implements OnInit, OnDestroy {
-  @Input() user!: string | null;
+	@Input() user!: string | null;
 
-  @ViewChild(&#x27;message&#x27;, { read: ViewContainerRef })
-  placeholder!: ViewContainerRef;
+	@ViewChild(&#x27;message&#x27;, { read: ViewContainerRef })
+	placeholder!: ViewContainerRef;
 
-  private customerCommands: any &#x3D; {};
-  private completeWidgetsList!: ComponentRef&lt;CompleteComponent&gt;[];
-  private dateWidgetsList!: ComponentRef&lt;DateComponent&gt;[];
-  private rateWidgetsList!: ComponentRef&lt;RateComponent&gt;[];
+	private completeWidgetsList!: ComponentRef&lt;CompleteComponent&gt;[];
+	private dateWidgetsList!: ComponentRef&lt;DateComponent&gt;[];
+	private rateWidgetsList!: ComponentRef&lt;RateComponent&gt;[];
 
-  /**
-   * stores all subscriptions of the component
-   */
-  private subscriptions: Subscription;
+	/**
+	 * stores all subscriptions of the component
+	 */
+	private subscriptions: Subscription;
 
-  constructor(
-    private chatService: ChatService,
-    private authService: AuthenticationService,
-    private router: Router
-  ) {
-    this.completeWidgetsList &#x3D; [];
-    this.dateWidgetsList &#x3D; [];
-    this.rateWidgetsList &#x3D; [];
-    this.subscriptions &#x3D; new Subscription();
-  }
+	constructor(
+		private chatService: ChatService,
+		private authService: AuthenticationService,
+		private router: Router
+	) {
+		this.completeWidgetsList &#x3D; [];
+		this.dateWidgetsList &#x3D; [];
+		this.rateWidgetsList &#x3D; [];
+		this.subscriptions &#x3D; new Subscription();
+	}
 
-  ngOnDestroy(): void {
-    // unsubscribe from all subscriptions
-    this.subscriptions.unsubscribe();
-  }
+	ngOnDestroy(): void {
+		// unsubscribe from all subscriptions
+		this.subscriptions.unsubscribe();
+	}
 
-  ngOnInit(): void {
-    this.insertDynamicComponent();
-  }
+	ngOnInit(): void {
+		this.insertDynamicComponent();
+	}
 
-  /**
-   * @description method to subscribe to socket events
-   * listens for messages and commands and handles each event types
-   */
-  private insertDynamicComponent(): void {
-    /**
-     * subscribe to command events
-     */
-    const commandSubsScription &#x3D; this.chatService.command$.subscribe(
-      (command) &#x3D;&gt; {
-        console.log(command);
-        this.loadWidgetByCommandType(command);
-      }
-    );
+	/**
+	 * @description method to subscribe to socket events
+	 * listens for messages and commands and handles each event types
+	 */
+	private insertDynamicComponent(): void {
+		/**
+		 * subscribe to command events
+		 */
+		const commandSubsScription &#x3D; this.chatService.command$.subscribe(
+			(command) &#x3D;&gt; {
+				console.log(command);
+				this.loadWidgetByCommandType(command);
+			}
+		);
 
-    /**
-     * subscribe to message events
-     * create a new message component and set its state values
-     * append component to the DOM
-     */
-    const messageSubscription &#x3D; this.chatService.message$.subscribe(
-      (message) &#x3D;&gt; {
-        console.log(message);
-        const component &#x3D; this.placeholder.createComponent(MessageComponent);
-        component.instance.username &#x3D; this.user;
-        component.instance.chat &#x3D; message;
-      }
-    );
+		/**
+		 * subscribe to message events
+		 * create a new message component and set its state values
+		 * append component to the DOM
+		 */
+		const messageSubscription &#x3D; this.chatService.message$.subscribe(
+			(message) &#x3D;&gt; {
+				console.log(message);
+				const component &#x3D; this.placeholder.createComponent(MessageComponent);
+				component.instance.username &#x3D; this.user;
+				component.instance.chat &#x3D; message;
+			}
+		);
 
-    /**
-     * add both events to subscription list
-     */
-    this.subscriptions.add(commandSubsScription);
-    this.subscriptions.add(messageSubscription);
-  }
+		/**
+		 * add both events to subscription list
+		 */
+		this.subscriptions.add(commandSubsScription);
+		this.subscriptions.add(messageSubscription);
+	}
 
-  /**
-   * @description method to check what command was sent from the sever
-   * renders widget according to the type of the command
-   * @param {CommandResponse} commandResponse - response from server when command is triggered
-   */
-  private loadWidgetByCommandType(commandResponse: CommandResponse): void {
-    let component;
-    switch (commandResponse.command.type) {
-      // render complete widget
-      case CommandType.COMPLETE:
-        component &#x3D; this.placeholder.createComponent(CompleteComponent);
-        component.instance.author &#x3D; commandResponse.author;
-        component.instance.action &#x3D; this.customerCommands[CommandType.COMPLETE];
-        component.instance.actions &#x3D; commandResponse.command.data as [
-          string,
-          string
-        ];
-        component.instance.onAction.subscribe((action) &#x3D;&gt; {
-          this.handleCompleteEvent(action);
-        });
-        this.completeWidgetsList.push(component);
-        break;
+	/**
+	 * @description method to check what command was sent from the sever
+	 * renders widget according to the type of the command
+	 * @param {CommandResponse} commandResponse - response from server when command is triggered
+	 */
+	private loadWidgetByCommandType(commandResponse: CommandResponse): void {
+		let component;
+		switch (commandResponse.command.type) {
+			// render complete widget
+			case CommandType.COMPLETE:
+				component &#x3D; this.placeholder.createComponent(CompleteComponent);
+				component.instance.author &#x3D; commandResponse.author;
+				component.instance.action &#x3D; this.chatService.getResponse(CommandType.COMPLETE);
+				component.instance.actions &#x3D; commandResponse.command.data as [string, string];
+				component.instance.onAction.subscribe((action) &#x3D;&gt; {
+					this.handleCompleteEvent(action);
+				});
+				this.completeWidgetsList.push(component);
+				break;
 
-      // render date
-      case CommandType.DATE:
-        component &#x3D; this.placeholder.createComponent(DateComponent);
-        component.instance.author &#x3D; commandResponse.author;
-        component.instance.user &#x3D; this.authService.username;
-        component.instance.selectedDay &#x3D;
-          this.customerCommands[CommandType.DATE];
-        component.instance.minDate &#x3D; new Date(
-          commandResponse.command.data as string
-        );
-        component.instance.onDaySelected.subscribe((date) &#x3D;&gt; {
-          this.handleDateEvent(date);
-        });
-        this.dateWidgetsList.push(component);
-        break;
+			// render date
+			case CommandType.DATE:
+				component &#x3D; this.placeholder.createComponent(DateComponent);
+				component.instance.author &#x3D; commandResponse.author;
+				component.instance.user &#x3D; this.authService.username;
+				component.instance.selectedDay &#x3D; this.chatService.getResponse(CommandType.DATE);
+				component.instance.minDate &#x3D; new Date(commandResponse.command.data as string);
+				component.instance.onDaySelected.subscribe((date) &#x3D;&gt; {
+					this.handleDateEvent(date);
+				});
+				this.dateWidgetsList.push(component);
+				break;
 
-      // render rating widget
-      case CommandType.RATE:
-        component &#x3D; this.placeholder.createComponent(RateComponent);
-        component.instance.author &#x3D; commandResponse.author;
-        component.instance.maxStars &#x3D; (
-          commandResponse.command.data as [number, number]
-        )[1];
-        component.instance.selectedRating &#x3D; this.customerCommands[
-          CommandType.RATE
-        ]
-          ? this.customerCommands[CommandType.RATE]
-          : 0;
-        component.instance.user &#x3D; this.authService.username;
-        component.instance.onRating.pipe(first()).subscribe((rating) &#x3D;&gt; {
-          this.handleRating(rating);
-        });
-        this.rateWidgetsList.push(component);
-        break;
+			// render rating widget
+			case CommandType.RATE:
+				component &#x3D; this.placeholder.createComponent(RateComponent);
+				component.instance.author &#x3D; commandResponse.author;
+				component.instance.maxStars &#x3D; (
+					commandResponse.command.data as [number, number]
+				)[1];
+				component.instance.selectedRating &#x3D; this.chatService.getResponse(CommandType.RATE)
+					? this.chatService.getResponse(CommandType.RATE)
+					: 0;
+				component.instance.user &#x3D; this.authService.username;
+				component.instance.onRating.pipe(first()).subscribe((rating) &#x3D;&gt; {
+					this.handleRating(rating);
+				});
+				this.rateWidgetsList.push(component);
+				break;
 
-      // render map widget
-      case CommandType.MAP:
-        component &#x3D; this.placeholder.createComponent(MapComponent);
-        component.instance.height &#x3D; 400;
-        component.instance.width &#x3D; 450;
+			// render map widget
+			case CommandType.MAP:
+				this.chatService.setResponse(CommandType.MAP, JSON.stringify(commandResponse.command.data))
+				component &#x3D; this.placeholder.createComponent(MapComponent);
+				component.instance.height &#x3D; &#x27;400px&#x27;;
+				component.instance.width &#x3D; &#x27;100%&#x27;
 
-        let data &#x3D; commandResponse.command.data as GeoCoords;
-        component.instance.latitude &#x3D; data.lat;
-        component.instance.longitude &#x3D; data.lng;
-        component.instance.author &#x3D; commandResponse.author;
-        break;
+				let data &#x3D; commandResponse.command.data as GeoCoords;
+				component.instance.latitude &#x3D; data.lat;
+				component.instance.longitude &#x3D; data.lng;
+				component.instance.author &#x3D; commandResponse.author;
+				break;
 
-      default:
-        throw new Error(&#x27;Invalid commandType&#x27;);
-    }
-  }
+			default:
+				throw new Error(&#x27;Invalid commandType&#x27;);
+		}
+	}
 
-  /**
-   * @description event handler when use selects action from complete widget
-   * destroy all previous complete widgets from the chat
-   * @param day - user action to close conversation
-   */
-  private handleCompleteEvent(action: string): void {
-    this.customerCommands[CommandType.COMPLETE] &#x3D; action;
-    console.log(this.customerCommands);
-    switch (action) {
-      case &#x27;Yes&#x27;:
-        // this.authService.logout().subscribe((_) &#x3D;&gt; {
-        //     this.router.navigate([&#x27;/login&#x27;]);
-        // });
-        break;
-      case &#x27;No&#x27;:
-        break; // do something
-      default:
-        throw new Error(&#x27;Invalid action&#x27;);
-    }
+	/**
+	 * @description event handler when use selects action from complete widget
+	 * destroy all previous complete widgets from the chat
+	 * @param day - user action to close conversation
+	 */
+	private handleCompleteEvent(action: string): void {
+		this.chatService.setResponse(CommandType.COMPLETE, action);
 
-    let currentRef &#x3D;
-      this.completeWidgetsList.pop() as ComponentRef&lt;CompleteComponent&gt;;
+		console.log(this.chatService.getAllResponses());
+		switch (action) {
+			case &#x27;Yes&#x27;:
+				this.authService.logout().subscribe((_) &#x3D;&gt; {
+					this.router.navigate([&#x27;/chat/responses&#x27;]);
+				});
+				break;
+			case &#x27;No&#x27;:
+				break; // do something
+			default:
+				throw new Error(&#x27;Invalid action&#x27;);
+		}
 
-    /**
-     * destroy all old widgets
-     */
-    this.completeWidgetsList.map((widget) &#x3D;&gt; {
-      widget.destroy();
-    });
+		let currentRef &#x3D;
+			this.completeWidgetsList.pop() as ComponentRef&lt;CompleteComponent&gt;;
 
-    /**
-     * update current widget state
-     */
-    currentRef.instance.action &#x3D; action;
+		/**
+		 * destroy all old widgets
+		 */
+		this.completeWidgetsList.map((widget) &#x3D;&gt; {
+			widget.destroy();
+		});
 
-    this.completeWidgetsList &#x3D; [];
-    this.sendMessageOnCommandResponseEvent(action);
-  }
+		/**
+		 * update current widget state
+		 */
+		currentRef.instance.action &#x3D; action;
 
-  /**
-   * @description event handler when use selects day from the date widget
-   * destroy all previous date widgets from the chat
-   * @param day - appointment day
-   */
-  private handleDateEvent(day: string): void {
-    console.log(day);
-    this.customerCommands[CommandType.DATE] &#x3D; day;
-    console.log(this.customerCommands);
+		this.completeWidgetsList &#x3D; [];
+		this.sendMessageOnCommandResponseEvent(action);
+	}
 
-    let currentRef &#x3D; this.dateWidgetsList.pop() as ComponentRef&lt;DateComponent&gt;;
+	/**
+	 * @description event handler when use selects day from the date widget
+	 * destroy all previous date widgets from the chat
+	 * @param day - appointment day
+	 */
+	private handleDateEvent(day: string): void {
+		console.log(day);
+		this.chatService.setResponse(CommandType.DATE, day);
 
-    /**
-     * destroy all old widgets
-     */
-    this.dateWidgetsList.map((widget) &#x3D;&gt; {
-      widget.destroy();
-    });
+		console.log(this.chatService.getAllResponses());
 
-    /**
-     * update the latest widget state
-     */
-    currentRef.instance.selectedDay &#x3D; day;
+		let currentRef &#x3D; this.dateWidgetsList.pop() as ComponentRef&lt;DateComponent&gt;;
 
-    this.dateWidgetsList &#x3D; [];
-    this.sendMessageOnCommandResponseEvent(day);
-  }
+		/**
+		 * destroy all old widgets
+		 */
+		this.dateWidgetsList.map((widget) &#x3D;&gt; {
+			widget.destroy();
+		});
 
-  /**
-   * @description event handler when the user provides input for
-   * conversation rating widgets
-   * destroy all previous rating widgets from the chat
-   * @param {number} rating conversation rating
-   */
-  private handleRating(rating: number): void {
-    this.customerCommands[CommandType.RATE] &#x3D; rating;
-    console.log(this.rateWidgetsList);
+		/**
+		 * update the latest widget state
+		 */
+		currentRef.instance.selectedDay &#x3D; day;
 
-    let currentRef &#x3D; this.rateWidgetsList.pop() as ComponentRef&lt;RateComponent&gt;;
+		this.dateWidgetsList &#x3D; [];
+		this.sendMessageOnCommandResponseEvent(day);
+	}
 
-    /**
-     * destry old widgets
-     */
-    this.rateWidgetsList.map((widget) &#x3D;&gt; {
-      widget.destroy();
-    });
+	/**
+	 * @description event handler when the user provides input for
+	 * conversation rating widgets
+	 * destroy all previous rating widgets from the chat
+	 * @param {number} rating conversation rating
+	 */
+	private handleRating(rating: number): void {
+		this.chatService.setResponse(CommandType.RATE, rating);
+		console.log(this.rateWidgetsList);
 
-    /**
-     * update state of the latest widget to keep widget updated
-     */
-    currentRef.instance.selectedRating &#x3D; rating;
-    currentRef.instance.handleSelectStar(rating);
+		let currentRef &#x3D; this.rateWidgetsList.pop() as ComponentRef&lt;RateComponent&gt;;
 
-    this.rateWidgetsList &#x3D; [];
-    this.sendMessageOnCommandResponseEvent(rating.toString());
-  }
+		/**
+		 * destry old widgets
+		 */
+		this.rateWidgetsList.map((widget) &#x3D;&gt; {
+			widget.destroy();
+		});
 
-  /**
-   * @description sends the sever the response of the user
-   * @param {string} response - response of the user from the widget
-   */
-  private sendMessageOnCommandResponseEvent(response: string): void {
-    this.chatService.sendMessage({
-      author: this.authService.username,
-      message: response,
-    });
-  }
+		/**
+		 * update state of the latest widget to keep widget updated
+		 */
+		currentRef.instance.selectedRating &#x3D; rating;
+		currentRef.instance.handleSelectStar(rating);
+
+		this.rateWidgetsList &#x3D; [];
+		this.sendMessageOnCommandResponseEvent(rating.toString());
+	}
+
+	/**
+	 * @description sends the sever the response of the user
+	 * @param {string} response - response of the user from the widget
+	 */
+	private sendMessageOnCommandResponseEvent(response: string): void {
+		this.chatService.sendMessage({
+			author: this.authService.username,
+			message: response,
+		});
+	}
 }
 </code></pre>
         </div>

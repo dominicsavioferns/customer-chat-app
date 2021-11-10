@@ -28,13 +28,12 @@ export class ChatService {
 	/**
 	 * store widget responses of the user
 	 */
-	private responses: any;
+	private responses: any = {};
 
 	constructor() {
 
 		this.command$ = new Subject();
 		this.message$ = new Subject();
-		this.responses = {};
 		this.socket = io(environment.serverUrl);
 
 		/**

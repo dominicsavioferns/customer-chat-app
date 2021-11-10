@@ -112,6 +112,9 @@
                                     <a href="components/DateComponent.html" >DateComponent</a>
                                 </li>
                                 <li class="link">
+                                    <a href="components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                </li>
+                                <li class="link">
                                     <a href="components/LoginComponent.html" >LoginComponent</a>
                                 </li>
                                 <li class="link">
@@ -125,6 +128,9 @@
                                 </li>
                                 <li class="link">
                                     <a href="components/RateComponent.html" >RateComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="components/ResponsesComponent.html" >ResponsesComponent</a>
                                 </li>
                         </ul>
                     </li>
@@ -324,6 +330,9 @@
                                            <a href="components/DateComponent.html" >DateComponent</a>
                                        </li>
                                        <li class="link">
+                                           <a href="components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                       </li>
+                                       <li class="link">
                                            <a href="components/LoginComponent.html" >LoginComponent</a>
                                        </li>
                                        <li class="link">
@@ -337,6 +346,9 @@
                                        </li>
                                        <li class="link">
                                            <a href="components/RateComponent.html" >RateComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="components/ResponsesComponent.html" >ResponsesComponent</a>
                                        </li>
                                </ul>
                            </li>
@@ -440,20 +452,42 @@
                </div>
                <div class="content readme">
                    <div class="content-data">
-<h1 id="chatappclient">ChatAppClient</h1>
-<p>This project was generated with <a href="https://github.com/angular/angular-cli">Angular CLI</a> version 13.0.1.</p>
+<h1 id="ottonova-bot-chat-client">Ottonova Bot Chat Client</h1>
 <h2 id="development-server">Development server</h2>
 <p>Run <code>ng serve</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will automatically reload if you change any of the source files.</p>
-<h2 id="code-scaffolding">Code scaffolding</h2>
-<p>Run <code>ng generate component component-name</code> to generate a new component. You can also use <code>ng generate directive|pipe|service|class|guard|interface|enum|module</code>.</p>
 <h2 id="build">Build</h2>
 <p>Run <code>ng build</code> to build the project. The build artifacts will be stored in the <code>dist/</code> directory.</p>
 <h2 id="running-unit-tests">Running unit tests</h2>
 <p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io">Karma</a>.</p>
-<h2 id="running-end-to-end-tests">Running end-to-end tests</h2>
-<p>Run <code>ng e2e</code> to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.</p>
-<h2 id="further-help">Further help</h2>
-<p>To get more help on the Angular CLI use <code>ng help</code> or go check out the <a href="https://angular.io/cli">Angular CLI Overview and Command Reference</a> page.</p>
+<h2 id="login-page-login">Login Page /login</h2>
+<p>use one of the following credentials to login</p>
+<pre><code class="hljs undefined">    [<br>        {<br>            username: 'dominic',<br>            password: 'savio',<br>        },<br>        {<br>            username: 'john',<br>            password: 'doe'<br>        },<br>        {<br>            username: 'foo',<br>            password: 'bar'<br>        }<br>    ]<br></code></pre><h2 id="chat-page-chat">Chat Page /chat</h2>
+<p>you can perform the following actions on the chat page</p>
+<ol>
+<li><p>send a message<br> you can send send messages to the bot by typing in a message and clicking the send button.<br> the chats section will then get appended with your message and a response from the bot</p>
+</li>
+<li><p>trigger a command<br> you can trigger a command by clicking the trigger command button.<br> the bot will then respond with a widget in the chats section<br> you can interact with each widget only once. Except for the map widget.</p>
+</li>
+<li><p>close chat<br> closing the chat will take you to the user resonses section.<br> if you interacted with any of the widgets in the chats, yoour respeonses will be visible here.<br> else a message will be displayed saying you have no responses.</p>
+</li>
+<li><p>logout<br> if you click the logout button, you will be redirected to login page.</p>
+</li>
+</ol>
+<h2 id="widgets">widgets</h2>
+<ol>
+<li><p>Map Widget<br> display a map with coordinates sent in the command payload.</p>
+</li>
+<li><p>Date Widget<br> displays days sorted as per payload in command data</p>
+</li>
+<li><p>Complete Widget<br> displays widget with a card to select yes or no. if you select yes the chat section will close and responses page will open.</p>
+</li>
+<li><p>Rate Widget<br> display a widget asking user to rate the experience. No.of stars depends on response from server command payload.</p>
+</li>
+</ol>
+<h3 id="authentication">Authentication</h3>
+<p>If you try to access the chat or responses page without logiing in, you will be taken back to the login page</p>
+<h3 id="invalid-url">Invalid URL</h3>
+<p>If you try to access any url that does not exist you will be take to the 404 page.</p>
 
 
 

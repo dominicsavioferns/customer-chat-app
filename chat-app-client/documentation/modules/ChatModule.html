@@ -112,6 +112,9 @@
                                     <a href="../components/DateComponent.html" >DateComponent</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                </li>
+                                <li class="link">
                                     <a href="../components/LoginComponent.html" >LoginComponent</a>
                                 </li>
                                 <li class="link">
@@ -125,6 +128,9 @@
                                 </li>
                                 <li class="link">
                                     <a href="../components/RateComponent.html" >RateComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                 </li>
                         </ul>
                     </li>
@@ -324,6 +330,9 @@
                                            <a href="../components/DateComponent.html" >DateComponent</a>
                                        </li>
                                        <li class="link">
+                                           <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                       </li>
+                                       <li class="link">
                                            <a href="../components/LoginComponent.html" >LoginComponent</a>
                                        </li>
                                        <li class="link">
@@ -337,6 +346,9 @@
                                        </li>
                                        <li class="link">
                                            <a href="../components/RateComponent.html" >RateComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                        </li>
                                </ul>
                            </li>
@@ -513,6 +525,9 @@
                             <li class="list-group-item">
                                 <a href="../components/ChatHeaderComponent.html">ChatHeaderComponent</a>
                             </li>
+                            <li class="list-group-item">
+                                <a href="../components/ResponsesComponent.html">ResponsesComponent</a>
+                            </li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
@@ -533,7 +548,7 @@
         <pre><code class="hljs javascript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
 
-import { ChatContainerComponent } from &#x27;./chat-container/chat-container.component&#x27;;
+import { ChatContainerComponent } from &#x27;./pages/chat-container/chat-container.component&#x27;;
 import { ChatRoutingModule } from &#x27;./chat-routing.module&#x27;;
 import { MessagesContainerComponent } from &#x27;./components/messages-container/messages-container.component&#x27;;
 import { ChatPanelComponent } from &#x27;./components/chat-panel/chat-panel.component&#x27;;
@@ -546,28 +561,30 @@ import { DateComponent } from &#x27;./components/widgets/date/date.component&#x2
 import { MapComponent } from &#x27;./components/widgets/map/map.component&#x27;;
 import { ScrollBottomDirective } from &#x27;./directives/scroll-bottom-directive.directive&#x27;;
 import { ChatHeaderComponent } from &#x27;./components/chat-header/chat-header.component&#x27;;
+import { ResponsesComponent } from &#x27;./pages/responses/responses.component&#x27;;
 
 @NgModule({
-  declarations: [
-    ChatContainerComponent,
-    MessagesContainerComponent,
-    ChatPanelComponent,
-    MessageComponent,
-    CompleteComponent,
-    RateComponent,
-    DateComponent,
-    MapComponent,
-    ScrollBottomDirective,
-    ChatHeaderComponent,
-  ],
-  imports: [
-    CommonModule,
-    ChatRoutingModule,
-    MaterialModule,
-    ReactiveFormsModule,
-  ],
+	declarations: [
+		ChatContainerComponent,
+		MessagesContainerComponent,
+		ChatPanelComponent,
+		MessageComponent,
+		CompleteComponent,
+		RateComponent,
+		DateComponent,
+		MapComponent,
+		ScrollBottomDirective,
+		ChatHeaderComponent,
+		ResponsesComponent,
+	],
+	imports: [
+		CommonModule,
+		ChatRoutingModule,
+		MaterialModule,
+		ReactiveFormsModule,
+	],
 })
-export class ChatModule {}
+export class ChatModule { }
 </code></pre>
     </div>
 </div>

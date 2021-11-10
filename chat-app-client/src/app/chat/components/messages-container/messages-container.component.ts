@@ -242,7 +242,7 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
 	 */
 	private handleRating(rating: number): void {
 		this.chatService.setResponse(CommandType.RATE, rating);
-		console.log(this.rateWidgetsList);
+		console.log(this.chatService.getAllResponses());
 
 		let currentRef = this.rateWidgetsList.pop() as ComponentRef<RateComponent>;
 

@@ -112,6 +112,9 @@
                                     <a href="../components/DateComponent.html" >DateComponent</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                </li>
+                                <li class="link">
                                     <a href="../components/LoginComponent.html"  class="active" >LoginComponent</a>
                                 </li>
                                 <li class="link">
@@ -125,6 +128,9 @@
                                 </li>
                                 <li class="link">
                                     <a href="../components/RateComponent.html" >RateComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                 </li>
                         </ul>
                     </li>
@@ -324,6 +330,9 @@
                                            <a href="../components/DateComponent.html" >DateComponent</a>
                                        </li>
                                        <li class="link">
+                                           <a href="../components/ErrorPageComponent.html" >ErrorPageComponent</a>
+                                       </li>
+                                       <li class="link">
                                            <a href="../components/LoginComponent.html"  class="active" >LoginComponent</a>
                                        </li>
                                        <li class="link">
@@ -337,6 +346,9 @@
                                        </li>
                                        <li class="link">
                                            <a href="../components/RateComponent.html" >RateComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/ResponsesComponent.html" >ResponsesComponent</a>
                                        </li>
                                </ul>
                            </li>
@@ -563,6 +575,21 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
+                            <b><span class="modifier">Public</span> invalidCredentialsError</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <span class="modifier-icon fa fa-circle"></span><code>invalidCredentialsError:     <code>string</code>
+    </bcode>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
                             <b><span class="modifier">Public</span> loginForm</b>
                         </td>
                     </tr>
@@ -586,40 +613,48 @@ import { AuthenticationService } from &#x27;../authentication.service&#x27;;
 import { Credentials } from &#x27;../interfaces/credentials.interface&#x27;;
 
 @Component({
-  selector: &#x27;ott-login&#x27;,
-  templateUrl: &#x27;./login.component.html&#x27;,
-  styleUrls: [&#x27;./login.component.scss&#x27;],
+	selector: &#x27;ott-login&#x27;,
+	templateUrl: &#x27;./login.component.html&#x27;,
+	styleUrls: [&#x27;./login.component.scss&#x27;],
 })
 export class LoginComponent implements OnInit {
-  public loginForm: FormGroup;
+	public loginForm: FormGroup;
+	public invalidCredentialsError: string | null;
 
-  constructor(
-    private authService: AuthenticationService,
-    private router: Router,
-    private title: Title
-  ) {
-    this.title.setTitle(&#x27;Ottonova Bot | Login&#x27;);
-    this.loginForm &#x3D; new FormGroup({
-      username: new FormControl(&#x27;&#x27;, [Validators.required]),
-      password: new FormControl(&#x27;&#x27;, [Validators.required]),
-    });
-  }
+	constructor(
+		private authService: AuthenticationService,
+		private router: Router,
+		private title: Title
+	) {
+		this.invalidCredentialsError &#x3D; null;
+		this.title.setTitle(&#x27;Ottonova Bot | Login&#x27;);
+		this.loginForm &#x3D; new FormGroup({
+			username: new FormControl(&#x27;&#x27;, [Validators.required]),
+			password: new FormControl(&#x27;&#x27;, [Validators.required]),
+		});
+	}
 
-  ngOnInit(): void {}
+	ngOnInit(): void { }
 
-  /**
-   * @description method to handle user login
-   * redirects to chat page on success
-   * @returns
-   */
-  public onSubmit(): void {
-    if (this.loginForm.invalid) return;
-    this.authService
-      .login(this.loginForm.value as Credentials)
-      .subscribe((isAuthenticated) &#x3D;&gt;
-        isAuthenticated ? this.router.navigate([&#x27;/chat&#x27;]) : null
-      );
-  }
+	/**
+	 * @description method to handle user login
+	 * redirects to chat page on success
+	 * @returns
+	 */
+	public onSubmit(): void {
+		if (this.loginForm.invalid) return;
+		this.authService
+			.login(this.loginForm.value as Credentials)
+			.subscribe((isAuthenticated) &#x3D;&gt; {
+				if (isAuthenticated) {
+					this.router.navigate([&#x27;/chat&#x27;]);
+					this.invalidCredentialsError &#x3D; null;
+				}
+				else {
+					this.invalidCredentialsError &#x3D; &#x27;Invalid Credentials&#x27;;
+				}
+			});
+	}
 }
 </code></pre>
         </div>
