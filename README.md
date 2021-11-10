@@ -7,8 +7,12 @@ http://customer-chat-bot.s3-website.ap-south-1.amazonaws.com/login
 http://chat-app-documentation.s3-website.ap-south-1.amazonaws.com/
 
 ## Development server
+- clone the project
+- open terminal in project directory
+- run `npm install`
+- run `ng serve -o` this will open the project in a browser on port 4200
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Install angualr cli before using ng serve command. run `npm i -g @angular/cli`
 
 ## Build
 
