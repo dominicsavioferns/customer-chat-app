@@ -10,7 +10,7 @@ import { ChatService } from '../../chat.service';
 })
 export class ResponsesComponent {
 
-	private chatResponses: any;
+	public chatResponses: any;
 	public commands: string[];
 
 	constructor(
@@ -18,8 +18,8 @@ export class ResponsesComponent {
 		private authService: AuthenticationService,
 		private router: Router
 	) {
-		this.chatResponses = this.chatService.getAllResponses();
-		this.commands = Object.keys(this.chatResponses);
+		this.chatResponses = this.chatService.getAllResponses() | {} as any;
+		this.commands = !this.chatResponses ? Object.keys(this.chatResponses) : [];
 	}
 
 	hasResponses(): boolean {
@@ -40,6 +40,6 @@ export class ResponsesComponent {
 
 	getMapCoordsToText(coords: string): string {
 		const coordsData = JSON.parse(coords);
-		return `Latitude: ${coordsData.lat} Longitude:${coordsData.lng}`;
+		return `Latitude: ${coordsData.lat} Longitude: ${coordsData.lng}`;
 	}
 }

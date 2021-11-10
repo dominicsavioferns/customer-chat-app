@@ -109,10 +109,21 @@ describe('LoginComponent', () => {
 			expect(routerSpy.navigate).toHaveBeenCalledWith(['/chat']);
 		});
 
-		it('should set error message when username or password is wrong', () => {
-			component.loginForm.patchValue({ password: 'wrong password' });
+		describe('Wrong credentials', () => {
+			let loginBtn;
 
-			expect(component.invalidCredentialsError).toBe('Invalid Credentials');
+			beforeEach(() => {
+				authServiceSpy.login.and.returnValue(of(false));
+				loginBtn = fixture.debugElement.query(By.css('#login-btn'));
+				component.loginForm.patchValue({ username: 'dominic' });
+				component.loginForm.patchValue({ password: 'password' });
+				loginBtn.nativeElement.click();
+				fixture.detectChanges();
+			});
+
+			it('should set error message when credentials are wrong', () => {
+				expect(component.invalidCredentialsError).toEqual('Invalid Credentials');
+			});
 		});
 	});
 });

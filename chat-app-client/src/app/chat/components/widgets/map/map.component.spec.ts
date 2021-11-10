@@ -27,8 +27,8 @@ describe('MapComponent', () => {
 		component = fixture.componentInstance;
 		component.latitude = latitude;
 		component.longitude = longitude;
-		component.height = 400;
-		component.width = 400;
+		component.height = "400px";
+		component.width = "400px";
 		component.author = 'dominic';
 		fixture.detectChanges();
 	});

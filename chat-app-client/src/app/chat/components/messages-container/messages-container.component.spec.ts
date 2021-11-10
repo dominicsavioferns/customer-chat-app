@@ -18,7 +18,7 @@ describe('MessagesContainerComponent', () => {
 	let chatSection: DebugElement;
 
 	beforeEach(async () => {
-		chatServiceSpy = jasmine.createSpyObj<ChatService>('ChatService', ['sendMessage']);
+		chatServiceSpy = jasmine.createSpyObj<ChatService>('ChatService', ['sendMessage', 'setResponse', 'getResponse']);
 		authServiceSpy = { username: 'dominic' };
 		routerServiceSpy = jasmine.createSpyObj<Router>('Router', ['navigate']);
 

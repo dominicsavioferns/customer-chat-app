@@ -2,11 +2,12 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+
 import { of, Subject } from 'rxjs';
+
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { MaterialModule } from 'src/app/material/material.module';
 import { ChatService } from '../../chat.service';
-
 import { ChatContainerComponent } from './chat-container.component';
 
 describe('ChatContainerComponent', () => {
@@ -17,7 +18,7 @@ describe('ChatContainerComponent', () => {
 	let routerServiceSpy: jasmine.SpyObj<Router>;
 
 	beforeEach(async () => {
-		chatServiceSpy = jasmine.createSpyObj<ChatService>('ChatService', ['sendMessage', 'triggerCommand']);
+		chatServiceSpy = jasmine.createSpyObj<ChatService>('ChatService', ['sendMessage', 'triggerCommand', 'resetChatResponses']);
 		authServiceSpy = jasmine.createSpyObj<AuthenticationService>('AuthenticationService', ['logout']);
 		routerServiceSpy = jasmine.createSpyObj<Router>('Router', ['navigate']);
 		chatServiceSpy.command$ = new Subject();
@@ -119,6 +120,10 @@ describe('ChatContainerComponent', () => {
 
 		it('should redirect user to login page', () => {
 			expect(routerServiceSpy.navigate).toHaveBeenCalledWith(['/login'])
+		});
+
+		it('should reset chatResponses in chat service', () => {
+			expect(chatServiceSpy.resetChatResponses).toHaveBeenCalled();
 		});
 	});
 });
