@@ -527,6 +527,11 @@ export class AuthenticationService {
 	 */
 	private allowedCredentials: Credentials[];
 
+	/**
+	 * key store store username in localstorage
+	 */
+	private readonly localStorageKey &#x3D; &#x27;ottonova-chat-username&#x27;;
+
 	constructor() {
 		this.allowedCredentials &#x3D; [
 			{
@@ -541,7 +546,9 @@ export class AuthenticationService {
 				username: &#x27;foo&#x27;,
 				password: &#x27;bar&#x27;
 			}
-		]
+		];
+
+		this.username &#x3D; localStorage.getItem(this.localStorageKey) ? localStorage.getItem(this.localStorageKey) : null;
 	}
 
 	/**
@@ -559,6 +566,8 @@ export class AuthenticationService {
 		}
 
 		this.username &#x3D; credential.username;
+		localStorage.setItem(this.localStorageKey, this.username);
+
 		return of(true);
 	}
 
@@ -568,6 +577,7 @@ export class AuthenticationService {
 	 */
 	public logout(): Observable&lt;boolean&gt; {
 		this.username &#x3D; null;
+		localStorage.removeItem(this.localStorageKey);
 		return of(true);
 	}
 }

@@ -176,9 +176,7 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
 		console.log(this.chatService.getAllResponses());
 		switch (action) {
 			case 'Yes':
-				this.authService.logout().subscribe((_) => {
-					this.router.navigate(['/chat/responses']);
-				});
+				this.router.navigate(['/chat/responses']);
 				break;
 			case 'No':
 				break; // do something

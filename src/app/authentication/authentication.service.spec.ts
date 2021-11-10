@@ -38,6 +38,13 @@ describe('AuthenticationService', () => {
 					expect(service.username).toEqual(validCredentialStub.username);
 				});
 		});
+
+		it('should set username in local storage', () => {
+			service.login(validCredentialStub)
+				.subscribe(_ => {
+					expect(localStorage.getItem('ottonova-chat-username')).toEqual(validCredentialStub.username);
+				});
+		});
 	});
 
 	describe('Logout', () => {
@@ -45,6 +52,13 @@ describe('AuthenticationService', () => {
 			service.logout()
 				.subscribe(_ => {
 					expect(service.username).toBeNull();
+				});
+		});
+
+		it('should remove username from local storage', () => {
+			service.logout()
+				.subscribe(_ => {
+					expect(localStorage.getItem('ottonova-chat-username')).toBeFalsy();
 				});
 		});
 	});
