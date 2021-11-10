@@ -7,9 +7,11 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class ChatHeaderComponent implements OnInit {
 	@Output() onLogout!: EventEmitter<boolean>;
+	@Output() onClose!: EventEmitter<boolean>;
 
 	constructor() {
 		this.onLogout = new EventEmitter<boolean>();
+		this.onClose = new EventEmitter<boolean>();
 	}
 
 	ngOnInit(): void { }
@@ -19,5 +21,12 @@ export class ChatHeaderComponent implements OnInit {
 	 */
 	public handleLogout(): void {
 		this.onLogout.emit(true);
+	}
+
+	/**
+	 * emit close chat event
+	 */
+	public handleClose(): void {
+		this.onClose.emit(true);
 	}
 }

@@ -1,0 +1,40 @@
+.wrapper{
+	display: flex;
+	justify-content: center;
+
+	.responses-container{
+		margin-top: 5%;
+
+		.card-title{
+			color:gray;
+		}
+
+		.no-responses{
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		#logout-btn{
+			margin-left: 5px;
+		}
+
+		.action-btns{
+			text-align: center;
+		}
+	}
+}
+
+
+/* Tablets*/
+@media only screen and (min-width: 480px) and (max-width: 930px) {
+	.responses-container {
+	  width: 90%;
+	}
+}
+  
+/* Desktops */
+@media only screen and (min-width: 930px) {
+	.responses-container {
+		width: 50%;
+	}
+}

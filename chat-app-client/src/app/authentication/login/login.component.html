@@ -9,7 +9,8 @@
 
 		<!--Login Form -->
 		<form [formGroup]="loginForm" class="login-form" (ngSubmit)="onSubmit()">
-
+			<small class="error-text" *ngIf="invalidCredentialsError"><b>{{invalidCredentialsError}}</b></small>
+			<br>
 			<!-- Username Input-->
 			<mat-form-field class="full-input-width">
 

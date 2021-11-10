@@ -32,7 +32,6 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
 	@ViewChild('message', { read: ViewContainerRef })
 	placeholder!: ViewContainerRef;
 
-	private customerCommands: any = {};
 	private completeWidgetsList!: ComponentRef<CompleteComponent>[];
 	private dateWidgetsList!: ComponentRef<DateComponent>[];
 	private rateWidgetsList!: ComponentRef<RateComponent>[];
@@ -110,11 +109,8 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
 			case CommandType.COMPLETE:
 				component = this.placeholder.createComponent(CompleteComponent);
 				component.instance.author = commandResponse.author;
-				component.instance.action = this.customerCommands[CommandType.COMPLETE];
-				component.instance.actions = commandResponse.command.data as [
-					string,
-					string
-				];
+				component.instance.action = this.chatService.getResponse(CommandType.COMPLETE);
+				component.instance.actions = commandResponse.command.data as [string, string];
 				component.instance.onAction.subscribe((action) => {
 					this.handleCompleteEvent(action);
 				});
@@ -126,11 +122,8 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
 				component = this.placeholder.createComponent(DateComponent);
 				component.instance.author = commandResponse.author;
 				component.instance.user = this.authService.username;
-				component.instance.selectedDay =
-					this.customerCommands[CommandType.DATE];
-				component.instance.minDate = new Date(
-					commandResponse.command.data as string
-				);
+				component.instance.selectedDay = this.chatService.getResponse(CommandType.DATE);
+				component.instance.minDate = new Date(commandResponse.command.data as string);
 				component.instance.onDaySelected.subscribe((date) => {
 					this.handleDateEvent(date);
 				});
@@ -144,10 +137,8 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
 				component.instance.maxStars = (
 					commandResponse.command.data as [number, number]
 				)[1];
-				component.instance.selectedRating = this.customerCommands[
-					CommandType.RATE
-				]
-					? this.customerCommands[CommandType.RATE]
+				component.instance.selectedRating = this.chatService.getResponse(CommandType.RATE)
+					? this.chatService.getResponse(CommandType.RATE)
 					: 0;
 				component.instance.user = this.authService.username;
 				component.instance.onRating.pipe(first()).subscribe((rating) => {
@@ -158,15 +149,10 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
 
 			// render map widget
 			case CommandType.MAP:
+				this.chatService.setResponse(CommandType.MAP, JSON.stringify(commandResponse.command.data))
 				component = this.placeholder.createComponent(MapComponent);
-				component.instance.height = 400;
-
-				if (window.innerWidth < 1024) {
-					component.instance.width = (window.innerWidth / 100) * 78
-				}
-				else {
-					component.instance.width = (((window.innerWidth / 100) * 60) / 100) * 78;
-				}
+				component.instance.height = '400px';
+				component.instance.width = '100%'
 
 				let data = commandResponse.command.data as GeoCoords;
 				component.instance.latitude = data.lat;
@@ -185,13 +171,14 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
 	 * @param day - user action to close conversation
 	 */
 	private handleCompleteEvent(action: string): void {
-		this.customerCommands[CommandType.COMPLETE] = action;
-		console.log(this.customerCommands);
+		this.chatService.setResponse(CommandType.COMPLETE, action);
+
+		console.log(this.chatService.getAllResponses());
 		switch (action) {
 			case 'Yes':
-				// this.authService.logout().subscribe((_) => {
-				//     this.router.navigate(['/login']);
-				// });
+				this.authService.logout().subscribe((_) => {
+					this.router.navigate(['/chat/responses']);
+				});
 				break;
 			case 'No':
 				break; // do something
@@ -225,8 +212,9 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
 	 */
 	private handleDateEvent(day: string): void {
 		console.log(day);
-		this.customerCommands[CommandType.DATE] = day;
-		console.log(this.customerCommands);
+		this.chatService.setResponse(CommandType.DATE, day);
+
+		console.log(this.chatService.getAllResponses());
 
 		let currentRef = this.dateWidgetsList.pop() as ComponentRef<DateComponent>;
 
@@ -253,7 +241,7 @@ export class MessagesContainerComponent implements OnInit, OnDestroy {
 	 * @param {number} rating conversation rating
 	 */
 	private handleRating(rating: number): void {
-		this.customerCommands[CommandType.RATE] = rating;
+		this.chatService.setResponse(CommandType.RATE, rating);
 		console.log(this.rateWidgetsList);
 
 		let currentRef = this.rateWidgetsList.pop() as ComponentRef<RateComponent>;

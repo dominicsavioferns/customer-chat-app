@@ -1,0 +1,40 @@
+<div class="wrapper">
+	<div class="responses-container">
+		<mat-card>
+			<mat-card-title class="card-title">Your Responses</mat-card-title>
+			<mat-divider></mat-divider>
+
+			<mat-card-content>
+				<div *ngIf="!hasResponses()" class="no-responses">
+					<p>you have have not answered any questions yet.</p>
+				</div>
+
+				<div class="responses" *ngIf="hasResponses()">
+					<mat-list role="list" *ngFor="let command of commands">
+						<mat-list-item role="listitem" *ngIf="command=='rate'">You rated us &nbsp;
+							<b>{{getResponse(command)}}</b>
+						</mat-list-item>
+						<mat-list-item role="listitem" *ngIf="command=='date'">Your appointment Day is on &nbsp;
+							<b>{{getResponse(command)}}</b>
+						</mat-list-item>
+						<mat-list-item role="listitem" *ngIf="command=='complete'">
+							<span *ngIf="getResponse(command)=='Yes'">You decided to close the conversation.</span>
+							<span *ngIf="getResponse(command)=='No'">You decided not to close the conversation.</span>
+						</mat-list-item>
+						<mat-list-item role="listitem" *ngIf="command=='map'">
+							Our center closest to you &nbsp; <b>{{getMapCoordsToText(getResponse(command))}}</b>
+						</mat-list-item>
+					</mat-list>
+				</div>
+
+				<br>
+				<div class="action-btns">
+					<button mat-raised-button color="accent" routerLink='/chat' id="back-to-chat-btn">
+						back to chat
+					</button>
+					<button mat-raised-button color="warn" (click)="handleLogout()" id="logout-btn">logout</button>
+				</div>
+			</mat-card-content>
+		</mat-card>
+	</div>
+</div>

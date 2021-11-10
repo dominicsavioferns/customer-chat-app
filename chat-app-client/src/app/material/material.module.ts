@@ -7,27 +7,30 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
-  imports: [
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-  ],
-  exports: [
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-  ],
+	imports: [
+		MatInputModule,
+		MatCardModule,
+		MatButtonModule,
+		MatDividerModule,
+		MatIconModule,
+		MatTooltipModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatListModule
+	],
+	exports: [
+		MatInputModule,
+		MatCardModule,
+		MatButtonModule,
+		MatDividerModule,
+		MatIconModule,
+		MatTooltipModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatListModule
+	],
 })
-export class MaterialModule {}
+export class MaterialModule { }

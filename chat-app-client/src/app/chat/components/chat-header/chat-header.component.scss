@@ -1,8 +1,12 @@
 .wrapper {
   display: flex;
   justify-content: flex-end;
-  
-  #logout-btn {
-    margin: 6px;
+
+  div{
+	  padding:5px;
+
+	  #close-btn{
+		  color:rgb(194, 5, 5);
+	  }
   }
 }

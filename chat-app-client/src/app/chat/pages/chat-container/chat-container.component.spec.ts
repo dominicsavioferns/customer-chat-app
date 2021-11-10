@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { MaterialModule } from 'src/app/material/material.module';
-import { ChatService } from '../chat.service';
+import { ChatService } from '../../chat.service';
 
 import { ChatContainerComponent } from './chat-container.component';
 

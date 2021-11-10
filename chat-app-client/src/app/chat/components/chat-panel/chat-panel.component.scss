@@ -16,7 +16,7 @@
 	  width:80%;
     }
 
-    .chat-input:focus {
+    #chat-input:focus {
       outline: none;
       padding-left: 1%;
       padding-right: 1%;
@@ -30,19 +30,19 @@
 }
 
 @media only screen and (max-width: 630px) {
-    .wrapper .actions-wrapper .chat-input {
+    .wrapper .actions-wrapper #chat-input {
 		width:75%;
 	}
 }
 
 @media only screen and (max-width: 480px) {
-    .wrapper .actions-wrapper .chat-input {
+    .wrapper .actions-wrapper #chat-input {
 		width:70%;
 	}
 }
 
 @media only screen and (max-width: 380px) {
-    .wrapper .actions-wrapper .chat-input {
+    .wrapper .actions-wrapper #chat-input {
 		width:60%
 	}
 }

@@ -31,8 +31,8 @@ import { entryAnimation } from '../../../animations/entry.animation';
 export class MapComponent implements OnInit, AfterViewInit {
 	@Input() latitude!: number;
 	@Input() longitude!: number;
-	@Input() height!: number;
-	@Input() width!: number;
+	@Input() height!: string;
+	@Input() width!: string;
 	@Input() author!: string;
 
 	constructor(

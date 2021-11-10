@@ -108,6 +108,11 @@ describe('LoginComponent', () => {
 
 			expect(routerSpy.navigate).toHaveBeenCalledWith(['/chat']);
 		});
-	});
 
+		it('should set error message when username or password is wrong', () => {
+			component.loginForm.patchValue({ password: 'wrong password' });
+
+			expect(component.invalidCredentialsError).toBe('Invalid Credentials');
+		});
+	});
 });

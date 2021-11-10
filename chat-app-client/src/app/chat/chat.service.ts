@@ -25,10 +25,16 @@ export class ChatService {
 	 */
 	public socket: Socket;
 
+	/**
+	 * store widget responses of the user
+	 */
+	private responses: any;
+
 	constructor() {
 
 		this.command$ = new Subject();
 		this.message$ = new Subject();
+		this.responses = {};
 		this.socket = io(environment.serverUrl);
 
 		/**
@@ -60,5 +66,21 @@ export class ChatService {
 	 */
 	public triggerCommand(payload: Payload): Socket {
 		return this.socket.emit('command', payload);
+	}
+
+	public setResponse(key: string, value: any): void {
+		this.responses[key] = value;
+	}
+
+	public getResponse(key: string): any {
+		return this.responses[key];
+	}
+
+	public getAllResponses(): any {
+		return this.responses;
+	}
+
+	public resetChatResponses(): void {
+		this.responses = {};
 	}
 }

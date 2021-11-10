@@ -2,8 +2,7 @@
   margin: 1%;
   display: flex;
   .message-card {
-    min-width: 20%;
-    max-width: 80%;
+    width: 80%;
 
     .sender-name {
       font-weight: bold;
