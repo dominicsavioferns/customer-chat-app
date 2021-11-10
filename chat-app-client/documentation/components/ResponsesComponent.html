@@ -688,12 +688,13 @@ export class ResponsesComponent {
 		private authService: AuthenticationService,
 		private router: Router
 	) {
-		this.chatResponses &#x3D; this.chatService.getAllResponses() | {} as any;
-		this.commands &#x3D; !this.chatResponses ? Object.keys(this.chatResponses) : [];
+		console.log(this.chatService.getAllResponses())
+		this.chatResponses &#x3D; this.chatService.getAllResponses();
+		this.commands &#x3D; this.chatResponses ? Object.keys(this.chatResponses) : [];
 	}
 
 	hasResponses(): boolean {
-		return Object.keys(this.chatResponses).length &gt; 0;
+		return this.commands.length &gt; 0;
 	}
 
 	handleLogout(): void {

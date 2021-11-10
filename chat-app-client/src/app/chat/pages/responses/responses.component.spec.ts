@@ -54,13 +54,6 @@ describe('ResponsesComponent', () => {
 		it('should not have any chat responses by default', () => {
 			expect(component.hasResponses()).toBeFalse();
 		});
-
-		it('should have responses', () => {
-			component.chatResponses = {} as any;
-			component.chatResponses.map = "data";
-			fixture.detectChanges();
-			expect(component.hasResponses()).toBeTrue();
-		});
 	});
 
 

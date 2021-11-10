@@ -815,13 +815,12 @@ export class ChatService {
 	/**
 	 * store widget responses of the user
 	 */
-	private responses: any;
+	private responses: any &#x3D; {};
 
 	constructor() {
 
 		this.command$ &#x3D; new Subject();
 		this.message$ &#x3D; new Subject();
-		this.responses &#x3D; {};
 		this.socket &#x3D; io(environment.serverUrl);
 
 		/**

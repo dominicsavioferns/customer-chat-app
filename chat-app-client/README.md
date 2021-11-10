@@ -1,5 +1,11 @@
 # Ottonova Bot Chat Client
 
+## View Live Demo App at:
+http://customer-chat-bot.s3-website.ap-south-1.amazonaws.com/login
+
+## View Full documentation at:
+http://chat-app-documentation.s3-website.ap-south-1.amazonaws.com/
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

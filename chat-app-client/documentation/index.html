@@ -459,35 +459,69 @@
 <p>Run <code>ng build</code> to build the project. The build artifacts will be stored in the <code>dist/</code> directory.</p>
 <h2 id="running-unit-tests">Running unit tests</h2>
 <p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io">Karma</a>.</p>
-<h2 id="login-page-login">Login Page /login</h2>
+<h2 id="code-coverage">Code Coverage</h2>
+<p>Run <code>ng test --code-coverage</code></p>
+<h2 id="login-page-route-login-location-src-app-authentication-login">Login Page route:/login,  location: src/app/authentication/login</h2>
+<p><img src="https://user-images.githubusercontent.com/49357594/141120501-f1f8f598-5480-46dd-9dba-78232f7a96ec.png" alt="image" class="img-responsive"></p>
 <p>use one of the following credentials to login</p>
-<pre><code class="hljs undefined">    [<br>        {<br>            username: 'dominic',<br>            password: 'savio',<br>        },<br>        {<br>            username: 'john',<br>            password: 'doe'<br>        },<br>        {<br>            username: 'foo',<br>            password: 'bar'<br>        }<br>    ]<br></code></pre><h2 id="chat-page-chat">Chat Page /chat</h2>
+<pre><code class="hljs undefined">    [<br>        {<br>            username: 'dominic',<br>            password: 'savio',<br>        },<br>        {<br>            username: 'john',<br>            password: 'doe'<br>        },<br>        {<br>            username: 'foo',<br>            password: 'bar'<br>        }<br>    ]<br></code></pre><h2 id="chat-page-route-chat-location-src-app-chat-pages-chat-container">Chat Page route:/chat, location: src/app/chat/pages/chat-container</h2>
 <p>you can perform the following actions on the chat page</p>
 <ol>
-<li><p>send a message<br> you can send send messages to the bot by typing in a message and clicking the send button.<br> the chats section will then get appended with your message and a response from the bot</p>
+<li><p>send a message</p>
+<ul>
+<li>you can send send messages to the bot by typing in a message and clicking the send button.<br>the chats section will then get appended with your message and a response from the bot</li>
+</ul>
 </li>
-<li><p>trigger a command<br> you can trigger a command by clicking the trigger command button.<br> the bot will then respond with a widget in the chats section<br> you can interact with each widget only once. Except for the map widget.</p>
+<li><p>trigger a command </p>
+<ul>
+<li>you can trigger a command by clicking the trigger command button.<br>the bot will then respond with a widget in the chats section<br>you can interact with each widget only once. Except for the map widget.</li>
+</ul>
 </li>
-<li><p>close chat<br> closing the chat will take you to the user resonses section.<br> if you interacted with any of the widgets in the chats, yoour respeonses will be visible here.<br> else a message will be displayed saying you have no responses.</p>
+<li><p>close chat</p>
+<ul>
+<li>closing the chat will take you to the user resonses section.<br>if you interacted with any of the widgets in the chats, yoour respeonses will be visible here.<br>else a message will be displayed saying you have no responses.</li>
+</ul>
 </li>
-<li><p>logout<br> if you click the logout button, you will be redirected to login page.</p>
+<li><p>logout</p>
+<ul>
+<li>if you click the logout button, you will be redirected to login page.</li>
+</ul>
 </li>
 </ol>
+<h2 id="chat-section">Chat Section</h2>
+<p><img src="https://user-images.githubusercontent.com/49357594/141119052-26b8bf69-69a6-41b1-98ee-61777133e2cb.png" alt="image" class="img-responsive"></p>
 <h2 id="widgets">widgets</h2>
 <ol>
-<li><p>Map Widget<br> display a map with coordinates sent in the command payload.</p>
+<li><p>Map Widget src/app/chat/components/widgets/map</p>
+<ul>
+<li>display a map with coordinates sent in the command payload.</li>
+<li><img src="https://user-images.githubusercontent.com/49357594/141119338-5d246502-0173-4f53-96ca-1cebe396baa9.png" alt="image" class="img-responsive"></li>
+</ul>
 </li>
-<li><p>Date Widget<br> displays days sorted as per payload in command data</p>
+<li><p>Date Widget  src/app/chat/components/widgets/date</p>
+<ul>
+<li>displays days sorted as per payload in command data</li>
+<li><img src="https://user-images.githubusercontent.com/49357594/141119382-1bc3c80c-72dc-4b4c-aa40-99fccd3d997f.png" alt="image" class="img-responsive"></li>
+</ul>
 </li>
-<li><p>Complete Widget<br> displays widget with a card to select yes or no. if you select yes the chat section will close and responses page will open.</p>
+<li><p>Complete Widget src/chat/components/widgets/complete</p>
+<ul>
+<li>displays widget with a card to select yes or no. if you select yes the chat section will close and responses page will open.</li>
+<li><img src="https://user-images.githubusercontent.com/49357594/141119473-f64df860-ea9a-4ffc-af0c-133b46cb46ab.png" alt="image" class="img-responsive"></li>
+</ul>
 </li>
-<li><p>Rate Widget<br> display a widget asking user to rate the experience. No.of stars depends on response from server command payload.</p>
+<li><p>Rate Widget src/app/chat/components/widgets/rate</p>
+<ul>
+<li>display a widget asking user to rate the experience. No.of stars depends on response from server command payload.</li>
+<li><img src="https://user-images.githubusercontent.com/49357594/141119276-676573f2-8527-4de8-ae4d-db2dbb937920.png" alt="image" class="img-responsive"></li>
+</ul>
 </li>
 </ol>
 <h3 id="authentication">Authentication</h3>
 <p>If you try to access the chat or responses page without logiing in, you will be taken back to the login page</p>
 <h3 id="invalid-url">Invalid URL</h3>
 <p>If you try to access any url that does not exist you will be take to the 404 page.</p>
+<h3 id="pages-are-optimized-for-mobile-devices-using-media-queries">pages are optimized for mobile devices using media queries</h3>
 
 
 
