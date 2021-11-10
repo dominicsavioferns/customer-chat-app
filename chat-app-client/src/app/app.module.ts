@@ -5,9 +5,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ErrorPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,0 +1,14 @@
+.wrapper{
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+
+	.card{
+		width: 50%;
+		display: block;
+		margin: auto;
+		text-align: center;
+		height: 20%;
+	}
+}
