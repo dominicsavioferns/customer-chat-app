@@ -13,6 +13,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Login Page route:/login,  location: src/app/authentication/login
+![image](https://user-images.githubusercontent.com/49357594/141120501-f1f8f598-5480-46dd-9dba-78232f7a96ec.png)
 
 use one of the following credentials to login
 ```
